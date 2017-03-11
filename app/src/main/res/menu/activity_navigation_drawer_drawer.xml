@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/appDraweritem1"
+        android:id="@+id/friends">
+        <menu>
+
+        </menu>
+    </item>
+
+    <item android:title="@string/appDraweritem2"
+        android:id="@+id/groups">
+        <menu>
+
+        </menu>
+    </item>
+
+
+</menu>

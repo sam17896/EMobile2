@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -34,7 +37,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener ,View.OnClickListener {
+public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+        ,View.OnClickListener, AdapterView.OnItemClickListener {
 
     ArrayList<Topic> topicList;
     ArrayList<String> friends;
@@ -46,12 +50,15 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     ProgressDialog pDialog;
     SessionManager session;
     Menu menu;
+    private static LayoutInflater inflater=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         TopicList = (ListView) findViewById(R.id.topiclist);
      //   username = (TextView) findViewById(R.id.username);
@@ -140,7 +147,19 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
     }
 
-private class MyTask extends AsyncTask<String,String,String> {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(view==null)
+            view = inflater.inflate(R.layout.listview, null);
+
+        session.setTopicID((String)view.findViewById(R.id.id).getTag());
+
+        Intent i = new Intent(this, TopicView.class);
+        startActivity(i);
+
+    }
+
+    private class MyTask extends AsyncTask<String,String,String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -171,6 +190,8 @@ private class MyTask extends AsyncTask<String,String,String> {
         ListAdapter adapter = new TopicAdapter(NavigationDrawer.this, R.layout.listview , topicList);
 
         TopicList.setAdapter(adapter);
+
+        TopicList.setOnItemClickListener(NavigationDrawer.this);
     }
 
     @Override

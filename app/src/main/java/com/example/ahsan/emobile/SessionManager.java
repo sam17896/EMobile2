@@ -20,6 +20,7 @@ public class SessionManager {
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private static final String KEY_USERID = "userid";
     private static final String KEY_USERNAME = "username";
+    private static final String KEY_TOPIC_ID = "topic_id";
 
 
     public SessionManager(Context context) {
@@ -49,6 +50,20 @@ public class SessionManager {
         Log.d(TAG, "User ID set");
 
     }
+
+    public void setTopicID(String topicID){
+        editor.putString(KEY_TOPIC_ID,topicID);
+        editor.commit();
+
+        Log.d(TAG, "Topic ID is set");
+
+    }
+
+    public String getTopicID(){
+        return pref.getString(KEY_TOPIC_ID,"-1");
+    }
+
+
 
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);

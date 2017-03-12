@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent i;
         switch (id){
             case R.id.button:
-                i = new Intent(this,LoginActivity.class);
+                i = new Intent(this,NavigationDrawer.class);
                 startActivity(i);
                 finish();
                 break;

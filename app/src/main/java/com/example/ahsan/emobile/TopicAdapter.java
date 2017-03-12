@@ -46,7 +46,7 @@ public class TopicAdapter extends ArrayAdapter{
         TextView title = (TextView) vi.findViewById(R.id.title);
         TextView description = (TextView) vi.findViewById(R.id.description);
         TextView id = (TextView) vi.findViewById(R.id.id);
-
+        TextView admin = (TextView) vi.findViewById(R.id.admin);
 
         Topic topic;
 
@@ -55,6 +55,7 @@ public class TopicAdapter extends ArrayAdapter{
         title.setText(topic.getTitle());
         description.setText(topic.getDescription());
         id.setTag(topic.getId());
+        admin.setText("Admin: "+topic.getAdminId());
 
         return vi;
     }

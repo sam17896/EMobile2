@@ -21,6 +21,10 @@ public class SessionManager {
     private static final String KEY_USERID = "userid";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_TOPIC_ID = "topic_id";
+    private static final String KEY_TOPIC_ADMIN = "topic_admin";
+    private static final String KEY_TOPIC_DESCRIPTION = "topic_description";
+    private static final String KEY_TOPIC_TITLE = "topic_titile";
+
 
 
     public SessionManager(Context context) {
@@ -41,6 +45,28 @@ public class SessionManager {
         editor.commit();
 
         Log.d(TAG, "User ID set");
+    }
+
+    public void setTopicName(String name){
+        editor.putString(KEY_TOPIC_TITLE,name);
+        editor.commit();
+
+        Log.d(TAG, "Topic name set");
+    }
+
+
+    public void setTopicDescription(String desc){
+        editor.putString(KEY_TOPIC_DESCRIPTION,desc);
+        editor.commit();
+
+        Log.d(TAG, "Topic Description set");
+    }
+
+    public void setTopicAdmin(String admin){
+        editor.putString(KEY_TOPIC_ADMIN,admin);
+        editor.commit();
+
+        Log.d(TAG, "Topic admin set");
     }
 
     public void setUsername(String username){
@@ -72,6 +98,21 @@ public class SessionManager {
     public String getUserID(){
         return pref.getString(KEY_USERID,"-1");
     }
+
+    public String getTopicAdmin(){
+        return pref.getString(KEY_TOPIC_ADMIN, "-1");
+    }
+
+    public String getTopicTitle(){
+        return pref.getString(KEY_TOPIC_TITLE,"-1");
+    }
+
+    public String getTopicDescription(){
+        return pref.getString(KEY_TOPIC_DESCRIPTION,"-1");
+    }
+
+
+
 
     public String getUsername(){
         return pref.getString(KEY_USERNAME,"Ediscussion");

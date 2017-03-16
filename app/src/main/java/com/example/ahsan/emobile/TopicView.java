@@ -3,14 +3,12 @@ package com.example.ahsan.emobile;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 
-import com.example.ahsan.emobile.Fragments.TabsPagerAdapter;
+import com.example.ahsan.emobile.Adapter.TabsPagerAdapter;
 
 /**
  * Created by AHSAN on 3/12/2017.

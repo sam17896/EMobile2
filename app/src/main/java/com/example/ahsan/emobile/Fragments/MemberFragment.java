@@ -30,8 +30,8 @@ public class MemberFragment extends Fragment {
     ArrayList<String> map;
     boolean s;
     SessionManager session;
-    ProgressDialog pd;
     String jsonStr;
+    public ListAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class MemberFragment extends Fragment {
         session = new SessionManager(getContext().getApplicationContext());
         lv = (ListView) rootView.findViewById(R.id.member);
 
-        pd = new ProgressDialog(getActivity());
         map = new ArrayList<>();
 
         MyTask task = new MyTask();
@@ -58,9 +57,6 @@ public class MemberFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-               pd.setMessage("Loading...");
-           pd.setCancelable(false);
-            pd.show();
         }
 
         @Override
@@ -77,12 +73,8 @@ public class MemberFragment extends Fragment {
         protected void onPostExecute(String str) {
             super.onPostExecute(str);
 
-            if(pd.isShowing()){
-                pd.hide();
-            }
 
-
-            ListAdapter adapter = new MemberAdapter(getActivity(),R.layout.member, map ,s);
+            adapter = new MemberAdapter(getActivity(),R.layout.member, map ,s);
             lv.setAdapter(adapter);
 
 

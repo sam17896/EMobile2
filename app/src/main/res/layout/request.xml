@@ -9,21 +9,33 @@
         android:id="@+id/name"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="23dp"
         android:gravity="center"
+        android:textColor="#FFFFFF"
         android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/name"
-        android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-        android:text="Remove" />
+        android:text="Add"
+        android:layout_marginLeft="97dp"
+        android:layout_marginStart="97dp"
+        android:layout_alignBottom="@+id/name"
+        android:layout_toRightOf="@+id/name"
+        android:layout_toEndOf="@+id/name" />
+
+    <Button
+        android:id="@+id/reject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reject"
+        android:layout_alignBaseline="@+id/add"
+        android:layout_alignBottom="@+id/add"
+        android:layout_toRightOf="@+id/add"
+        android:layout_toEndOf="@+id/add" />
 </RelativeLayout>

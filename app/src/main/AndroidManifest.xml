@@ -40,6 +40,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileView">
+            <intent-filter>
+                <action android:name="android.intent.action.PROFILEVIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"

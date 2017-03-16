@@ -24,6 +24,7 @@ public class SessionManager {
     private static final String KEY_TOPIC_ADMIN = "topic_admin";
     private static final String KEY_TOPIC_DESCRIPTION = "topic_description";
     private static final String KEY_TOPIC_TITLE = "topic_titile";
+    private static final String KEY_PROFILE = "profile";
 
 
 
@@ -62,6 +63,14 @@ public class SessionManager {
         Log.d(TAG, "Topic Description set");
     }
 
+    public void setProfile(String pr){
+        editor.putString(KEY_PROFILE, pr);
+        editor.commit();
+
+        Log.d(TAG, "Profile id set");
+
+    }
+
     public void setTopicAdmin(String admin){
         editor.putString(KEY_TOPIC_ADMIN,admin);
         editor.commit();
@@ -88,32 +97,22 @@ public class SessionManager {
     public String getTopicID(){
         return pref.getString(KEY_TOPIC_ID,"-1");
     }
-
-
-
+    public String getProfile() { return pref.getString(KEY_PROFILE,"-1");}
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
-
     public String getUserID(){
         return pref.getString(KEY_USERID,"-1");
     }
-
     public String getTopicAdmin(){
         return pref.getString(KEY_TOPIC_ADMIN, "-1");
     }
-
     public String getTopicTitle(){
         return pref.getString(KEY_TOPIC_TITLE,"-1");
     }
-
     public String getTopicDescription(){
         return pref.getString(KEY_TOPIC_DESCRIPTION,"-1");
     }
-
-
-
-
     public String getUsername(){
         return pref.getString(KEY_USERNAME,"Ediscussion");
     }

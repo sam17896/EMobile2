@@ -30,7 +30,6 @@ public class RequestFragment extends Fragment {
     ArrayList<String> map;
     boolean s;
     SessionManager session;
-    ProgressDialog pd;
     String jsonStr;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +41,6 @@ public class RequestFragment extends Fragment {
         session = new SessionManager(getContext().getApplicationContext());
         lv = (ListView) rootView.findViewById(R.id.request);
 
-        pd = new ProgressDialog(getActivity());
         map = new ArrayList<>();
 
         MyTask task = new MyTask();
@@ -58,9 +56,7 @@ public class RequestFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd.setMessage("Loading...");
-            pd.setCancelable(false);
-            pd.show();
+
         }
 
         @Override
@@ -76,10 +72,6 @@ public class RequestFragment extends Fragment {
         @Override
         protected void onPostExecute(String str) {
             super.onPostExecute(str);
-
-            if(pd.isShowing()){
-                pd.hide();
-            }
 
 
             ListAdapter adapter = new RequestAdapter(getActivity(),R.layout.request, map ,s);

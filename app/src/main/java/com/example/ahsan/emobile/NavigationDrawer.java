@@ -32,11 +32,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.ahsan.emobile.Fragments.DetailFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +47,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -85,14 +89,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                             view = inflater.inflate(R.layout.listview, null);
 
                         session.setTopicID((String)view.findViewById(R.id.id).getTag());
-                        TextView tt = (TextView) view.findViewById(R.id.title);
-                        TextView td = (TextView) view.findViewById(R.id.description);
-                        TextView ta = (TextView)  view.findViewById(R.id.admin);
-
-
-                        session.setTopicName(tt.getText().toString());
-                        session.setTopicDescription(td.getText().toString());
-                        session.setTopicAdmin(ta.getText().toString());
 
                         Intent i = new Intent(getApplicationContext(), TopicView.class);
                         startActivity(i);
@@ -181,7 +177,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_LONG).show();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -199,15 +194,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
             view = inflater.inflate(R.layout.listview, null);
 
         session.setTopicID((String)view.findViewById(R.id.id).getTag());
-/*        TextView tt = (TextView) view.findViewById(R.id.title);
-        TextView td = (TextView) view.findViewById(R.id.description);
-        TextView ta = (TextView)  view.findViewById(R.id.admin);
 
-
-        session.setTopicName(tt.getText().toString());
-        session.setTopicDescription(td.getText().toString());
-        session.setTopicAdmin(ta.getText().toString());
-*/
         Intent i = new Intent(this, TopicView.class);
         startActivity(i);
 
@@ -273,12 +260,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 String words[] = n.split(":");
                 menu.findItem(R.id.friends).getSubMenu().add(R.id.friends, Integer.parseInt(words[1]),k,words[0]);
                 MenuItem myMenuItem = menu.findItem(R.id.friends).getSubMenu().findItem(Integer.parseInt(words[1]));
-                try {
-                    myMenuItem.setIcon(drawableFromUrl(AppConfig.IMAGESURL + words[2]));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(NavigationDrawer.this, "Image not loaded", Toast.LENGTH_SHORT).show();
-                }
+                DownloadImageTask dn = new DownloadImageTask(myMenuItem);
+                dn.execute(AppConfig.IMAGESURL + words[2]);
                 myMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -323,18 +306,17 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 String words[] = n.split(":");
                 menu.findItem(R.id.groups).getSubMenu().add(R.id.groups, Integer.parseInt(words[1]),k,words[0]);
                 MenuItem myMenuItem = menu.findItem(R.id.groups).getSubMenu().findItem(Integer.parseInt(words[1]));
-                try {
-                    myMenuItem.setIcon(drawableFromUrl(AppConfig.IMAGESURL + words[2]));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(NavigationDrawer.this, "Image not loaded", Toast.LENGTH_SHORT).show();
-                }
+                DownloadImageTask dn = new DownloadImageTask(myMenuItem);
+                dn.execute(AppConfig.IMAGESURL + words[2]);
                 myMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
 
-                        // LOAD ACTIVITY TOPIC
+                        session.setTopicID(""+id);
+
+                        Intent i = new Intent(NavigationDrawer.this,TopicView.class);
+                        startActivity(i);
 
 
                         return false;
@@ -434,8 +416,9 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                     String name = c.getString("name");
                     String admin = c.getString("admin");
                     String description = c.getString("description");
+                    String image = c.getString("pic");
 
-                    Topic topic1 = new Topic(name, description , admin , id);
+                    Topic topic1 = new Topic(name, description , admin , id, image);
 
                     topicList.add(topic1);
 
@@ -478,15 +461,46 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-    public Drawable drawableFromUrl(String url) throws IOException {
-        Bitmap x;
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<MenuItem> menuItemReference;
 
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.connect();
-        InputStream input = connection.getInputStream();
+        public DownloadImageTask(MenuItem menuItem) {
+            menuItemReference = new WeakReference<>(menuItem);
+        }
 
-        x = BitmapFactory.decodeStream(input);
-        return new BitmapDrawable(x);
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap bitmap) {
+
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            if (menuItemReference != null) {
+                MenuItem menuitem = menuItemReference.get();
+                if (menuitem != null) {
+                    if (bitmap != null) {
+                        Drawable r = new BitmapDrawable(getResources(),bitmap);
+                        menuitem.setIcon(r);
+                    } else {
+                        //  Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
+                        // imageView.setImageDrawable(placeholder);
+                    }
+                }
+            }
+        }
     }
+
 }
 

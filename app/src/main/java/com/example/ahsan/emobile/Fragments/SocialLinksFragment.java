@@ -62,7 +62,7 @@ public class SocialLinksFragment extends Fragment {
 
             HttpHandler sh = new HttpHandler();
 
-            String url = AppConfig.URL +"loadlinks.php?id=" +  session.getProfile();
+            String url = AppConfig.URL + "loadlinks.php?id=" +  session.getProfile();
             LoadLink(url, sh);
             return null;
         }
@@ -93,7 +93,7 @@ public class SocialLinksFragment extends Fragment {
 
                     for (int i = 0; i < member.length(); i++) {
                         JSONObject c = member.getJSONObject(i);
-                        String str = c.getString("name") +":" + c.getString("link");
+                        String str = c.getString("name") + ":" + c.getString("link");
                         map.add(str);
                         s = false;
                     }

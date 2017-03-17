@@ -1,5 +1,6 @@
 package com.example.ahsan.emobile.Fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ public class DetailFragment extends Fragment {
     TextView title,description,admin;
     ImageView icon;
     String name,ad,desc,pic;
+    ProgressDialog pd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class DetailFragment extends Fragment {
         description = (TextView) vi.findViewById(R.id.description);
         admin = (TextView) vi.findViewById(R.id.adminName);
         icon = (ImageView) vi.findViewById(R.id.topic_icon);
+        pd = new ProgressDialog(getContext());
+
 
         myTask myTask = new myTask();
         myTask.execute("");
@@ -52,6 +56,9 @@ public class myTask extends AsyncTask<String,String,String>{
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        pd.setMessage("Loading.......");
+        pd.setCancelable(false);
+        pd.show();
     }
 
     @Override
@@ -88,8 +95,8 @@ public class myTask extends AsyncTask<String,String,String>{
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         title.setText(name);
-        description.setText(desc);
-        admin.setText(ad);
+        description.setText("Description:  " + desc);
+        admin.setText("Created By:  "+ad);
         DownloadImageTask dn = new DownloadImageTask();
         dn.execute(AppConfig.IMAGESURL + pic);
     }
@@ -110,6 +117,12 @@ public class myTask extends AsyncTask<String,String,String>{
         }
 
         protected void onPostExecute(Bitmap result) {
+
+            if(pd.isShowing()){
+                pd.hide();
+            }
+
+
             icon.setImageBitmap(result);
         }
     }

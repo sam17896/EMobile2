@@ -1,5 +1,6 @@
 package com.example.ahsan.emobile;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.ahsan.emobile.Adapter.ProfilePagerAdapter;
 
@@ -45,12 +47,32 @@ public class ProfileView extends ActionBarActivity implements ActionBar.TabListe
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_edit) {
+            Intent i = new Intent(ProfileView.this, EditActivity.class);
+            startActivity(i);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        if(session.getUserID()==session.getProfile())
+        if(session.getUserID().equals(session.getProfile()))
         getMenuInflater().inflate(R.menu.profile_menu, menu);
+
+
         return true;
     }
 

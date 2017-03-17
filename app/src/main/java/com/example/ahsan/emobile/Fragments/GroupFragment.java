@@ -89,7 +89,7 @@ public class GroupFragment extends Fragment {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    JSONArray member = jsonObj.getJSONArray("friend");
+                    JSONArray member = jsonObj.getJSONArray("group");
 
                     for (int i = 0; i < member.length(); i++) {
                         JSONObject c = member.getJSONObject(i);

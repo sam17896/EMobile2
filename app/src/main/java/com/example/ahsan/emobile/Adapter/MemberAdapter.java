@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
     private static LayoutInflater inflater = null;
     boolean s;
     SessionManager session;
-    Button b;
+    ImageButton b;
     public MemberAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
         super(activity, resource,  names);
 
@@ -63,7 +64,7 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
             vi = inflater.inflate(R.layout.member, null);
 
         TextView name = (TextView) vi.findViewById(R.id.name);
-        b = (Button) vi.findViewById(R.id.remove);
+        b = (ImageButton) vi.findViewById(R.id.remove);
 
         String[] words = names.get(position).split(":");
 
@@ -87,7 +88,7 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
 
         switch (id){
             case R.id.remove:
-                b = (Button) v;
+                b = (ImageButton) v;
                 myTask task = new myTask();
                 task.execute(v.getTag().toString() + ":" + v.getId());
 
@@ -123,8 +124,6 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-            b.setText("Removed");
             b.setEnabled(false);
         }
 

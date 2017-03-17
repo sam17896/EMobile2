@@ -50,12 +50,14 @@ public class LinkAdapter extends ArrayAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if(convertView == null)
-            vi = inflater.inflate(R.layout.add, null);
+            vi = inflater.inflate(R.layout.link, null);
 
         TextView type = (TextView) vi.findViewById(R.id.link_type);
         TextView number = (TextView) vi.findViewById(R.id.link_number);
 
         String[] words = names.get(position).split(":");
+
+        System.out.println(names.get(position));
 
         type.setText(words[0]);
         number.setText(words[1]);

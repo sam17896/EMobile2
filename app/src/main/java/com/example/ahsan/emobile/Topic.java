@@ -8,12 +8,14 @@ public class Topic {
     private String description;
     private String adminId;
     private String id;
+    private String image;
 
-    public Topic(String title, String description, String adminId, String id){
+    public Topic(String title, String description, String adminId, String id, String image){
         this.title = title;
         this.description = description;
         this.adminId = adminId;
         this.id = id;
+        this.image = image;
     }
 
     public String getId() {
@@ -46,5 +48,13 @@ public class Topic {
 
     public void setAdminId(String adminId) {
         this.adminId = adminId;
+    }
+
+    public void setImage(String image){
+        this.image = image;
+    }
+
+    public String getImage(){
+        return image;
     }
 }

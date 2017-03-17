@@ -1,12 +1,17 @@
 package com.example.ahsan.emobile.Fragments;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,17 +27,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class PersonalInformationFragment extends Fragment {
 
     TextView firstname, lastname, gender, country, dob;
-    String fn,ln,g,c,db;
+    ImageView imageView;
+    String fn,ln,g,c,db,pic;
     ArrayList<String> map;
     boolean s;
     SessionManager session;
     String jsonStr;
+    ProgressDialog pd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +55,8 @@ public class PersonalInformationFragment extends Fragment {
         gender = (TextView) rootView.findViewById(R.id.user_og);
         country = (TextView) rootView.findViewById(R.id.user_oc);
         dob = (TextView) rootView.findViewById(R.id.user_odob);
+        pd = new ProgressDialog(getContext());
+        imageView = (ImageView) rootView.findViewById(R.id.imageView);
 
         MyTask task = new MyTask();
         task.execute();
@@ -57,6 +68,10 @@ public class PersonalInformationFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pd.setMessage("Loading.....");
+            pd.setCancelable(false);
+            pd.show();
+
         }
 
         @Override
@@ -79,6 +94,8 @@ public class PersonalInformationFragment extends Fragment {
             country.setText(c);
             dob.setText(db);
 
+            DownloadImageTask dn = new DownloadImageTask();
+            dn.execute(AppConfig.IMAGESURL + pic);
 
         }
 
@@ -101,6 +118,7 @@ public class PersonalInformationFragment extends Fragment {
                     g = d.getString("g");
                     c = d.getString("c");
                     db = d.getString("dob");
+                    pic = d.getString("img");
 
 
 
@@ -110,6 +128,30 @@ public class PersonalInformationFragment extends Fragment {
             } else {
 
             }
+        }
+    }
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+
+            if(pd.isShowing()){
+                pd.hide();
+            }
+
+            imageView.setImageBitmap(result);
         }
     }
 }

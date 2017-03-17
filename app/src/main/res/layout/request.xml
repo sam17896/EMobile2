@@ -18,22 +18,22 @@
         android:text="TextView"
         android:textSize="20dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
         android:layout_marginLeft="97dp"
         android:layout_marginStart="97dp"
         android:layout_alignBottom="@+id/name"
         android:layout_toRightOf="@+id/name"
-        android:layout_toEndOf="@+id/name" />
+        android:layout_toEndOf="@+id/name"
+        android:src="@drawable/add_icon"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/reject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reject"
+        android:src="@drawable/icon_reject"
         android:layout_alignBaseline="@+id/add"
         android:layout_alignBottom="@+id/add"
         android:layout_toRightOf="@+id/add"

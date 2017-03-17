@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +30,9 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
     private Activity activity;
     private ArrayList<String> names;
+    int currPos;
     SessionManager session;
-    Button b;
+    ImageButton b;
     private static LayoutInflater inflater = null;
     boolean s;
     public AddAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
@@ -61,7 +63,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             vi = inflater.inflate(R.layout.add, null);
 
         TextView name = (TextView) vi.findViewById(R.id.name);
-        b = (Button) vi.findViewById(R.id.add);
+        b = (ImageButton) vi.findViewById(R.id.add);
 
         String[] words = names.get(position).split(":");
 
@@ -73,8 +75,9 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             b.setVisibility(View.GONE);
         }else{
             b.setOnClickListener(this);
-            b.setTag(words[1]);
+            b.setTag(words[1]+":"+position);
         }
+
 
         return vi;
     }
@@ -85,9 +88,11 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
         switch (id){
             case R.id.add:
-                b = (Button) v;
+                b = (ImageButton) v;
                 myTask task = new myTask();
-                task.execute(v.getTag().toString());
+                String[] tags = v.getTag().toString().split(":");
+                currPos = Integer.getInteger(tags[1]);
+                task.execute(tags[0]);
                 break;
 
             case R.id.name:
@@ -109,7 +114,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            b.setText("Added");
+            b.setImageResource(R.drawable.icon_added);
             b.setEnabled(false);
         }
 

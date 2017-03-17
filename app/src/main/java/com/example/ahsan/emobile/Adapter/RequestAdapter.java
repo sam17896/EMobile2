@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ public class RequestAdapter extends ArrayAdapter implements View.OnClickListener
     private Activity activity;
     private ArrayList<String> names;
     private static LayoutInflater inflater = null;
-    Button b , r;
+    ImageButton b , r;
     SessionManager session;
     boolean s;
     public RequestAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
@@ -61,8 +62,8 @@ public class RequestAdapter extends ArrayAdapter implements View.OnClickListener
             vi = inflater.inflate(R.layout.request, null);
 
         TextView name = (TextView) vi.findViewById(R.id.name);
-        b = (Button) vi.findViewById(R.id.add);
-        r = (Button) vi.findViewById(R.id.reject);
+        b = (ImageButton) vi.findViewById(R.id.add);
+        r = (ImageButton) vi.findViewById(R.id.reject);
 
         String[] words = names.get(position).split(":");
 
@@ -89,13 +90,13 @@ public class RequestAdapter extends ArrayAdapter implements View.OnClickListener
 
         switch (id){
             case R.id.add:
-                b = (Button) v;
+                b = (ImageButton) v;
                 myTask task = new myTask();
                 task.execute(v.getTag().toString());
                 break;
 
             case R.id.reject:
-                b = (Button) v;
+                b = (ImageButton) v;
 
                 myTask1 task1 = new myTask1();
                 task1.execute(v.getTag().toString());
@@ -119,7 +120,7 @@ public class RequestAdapter extends ArrayAdapter implements View.OnClickListener
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            b.setText(b.getText()+"ed");
+            b.setImageResource(R.drawable.icon_added);
             b.setEnabled(false);
         }
 
@@ -144,7 +145,6 @@ public class RequestAdapter extends ArrayAdapter implements View.OnClickListener
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            r.setText("Remove");
             r.setEnabled(false);
         }
 

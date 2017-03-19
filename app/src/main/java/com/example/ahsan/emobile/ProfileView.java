@@ -46,6 +46,9 @@ public class ProfileView extends ActionBarActivity implements ActionBar.TabListe
         viewPager.setOnPageChangeListener(this);
 
 
+
+
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -71,6 +74,8 @@ public class ProfileView extends ActionBarActivity implements ActionBar.TabListe
 
         if(session.getUserID().equals(session.getProfile()))
         getMenuInflater().inflate(R.menu.profile_menu, menu);
+        else
+        getMenuInflater().inflate(R.menu.profile_menu_other,menu);
 
 
         return true;
@@ -112,4 +117,6 @@ public class ProfileView extends ActionBarActivity implements ActionBar.TabListe
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
 }

@@ -3,13 +3,17 @@ package com.example.ahsan.emobile.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +24,8 @@ import com.example.ahsan.emobile.R;
 import com.example.ahsan.emobile.SessionManager;
 import com.example.ahsan.emobile.Topic;
 
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +41,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
     ImageButton b;
     private static LayoutInflater inflater = null;
     boolean s;
+    ImageView iv;
     public AddAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
         super(activity, resource,  names);
 
@@ -64,6 +71,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
         TextView name = (TextView) vi.findViewById(R.id.name);
         b = (ImageButton) vi.findViewById(R.id.add);
+        iv = (ImageView) vi.findViewById(R.id.imageView3);
 
         String[] words = names.get(position).split(":");
 
@@ -78,7 +86,8 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             b.setTag(words[1]+":"+position);
         }
 
-
+        DownloadImageTask dn = new DownloadImageTask(iv);
+        dn.execute(AppConfig.IMAGESURL + words[2]);
         return vi;
     }
 
@@ -128,6 +137,45 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             return null;
         }
 
+    }
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+
+        public DownloadImageTask(ImageView imageView) {
+            imageViewReference = new WeakReference<>(imageView);
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap bitmap) {
+
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            if (imageViewReference != null) {
+                ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    if (bitmap != null) {
+                        imageView.setImageBitmap(bitmap);
+                    } else {
+                        //  Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
+                        // imageView.setImageDrawable(placeholder);
+                    }
+                }
+            }
+        }
     }
 }
 

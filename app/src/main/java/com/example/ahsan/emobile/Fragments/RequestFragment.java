@@ -95,7 +95,7 @@ public class RequestFragment extends Fragment {
 
                     for (int i = 0; i < member.length(); i++) {
                         JSONObject c = member.getJSONObject(i);
-                        String str = c.getString("username") +":" + c.getString("userid");
+                        String str = c.getString("username") +":" + c.getString("userid")+":"+c.getString("pic");
                         map.add(str);
                         s = c.getBoolean("s");
                     }

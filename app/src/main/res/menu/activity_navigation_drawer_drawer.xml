@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:title="@string/home"
+        android:id="@+id/home"
+        android:icon="@drawable/icon_home">
+    </item>
+
+    <item android:title="@string/profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/icon_profile">
+    </item>
+
+    <item android:title="@string/chats"
+        android:id="@+id/chat"
+        android:icon="@drawable/icon_groups">
+    </item>
+
     <item android:title="@string/appDraweritem1"
-        android:id="@+id/friends">
+        android:id="@+id/friends"
+        android:icon="@drawable/icon_friend">
         <menu>
 
         </menu>
     </item>
 
     <item android:title="@string/appDraweritem2"
-        android:id="@+id/groups">
+        android:id="@+id/groups"
+        android:icon="@drawable/icon_chats">
         <menu>
 
         </menu>

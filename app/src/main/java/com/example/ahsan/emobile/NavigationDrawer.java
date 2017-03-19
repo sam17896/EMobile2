@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -177,6 +178,24 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        switch (id){
+            case R.id.profile:
+
+                session.setProfile(session.getUserID());
+
+                Intent i = new Intent(NavigationDrawer.this,ProfileView.class);
+                startActivity(i);
+                break;
+            case R.id.chat:
+
+                break;
+
+            case R.id.home:
+                Intent j = new Intent(NavigationDrawer.this,NavigationDrawer.class);
+                startActivity(j);
+                break;
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -260,8 +279,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 String words[] = n.split(":");
                 menu.findItem(R.id.friends).getSubMenu().add(R.id.friends, Integer.parseInt(words[1]),k,words[0]);
                 MenuItem myMenuItem = menu.findItem(R.id.friends).getSubMenu().findItem(Integer.parseInt(words[1]));
-                DownloadImageTask dn = new DownloadImageTask(myMenuItem);
-                dn.execute(AppConfig.IMAGESURL + words[2]);
+
                 myMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -306,8 +324,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 String words[] = n.split(":");
                 menu.findItem(R.id.groups).getSubMenu().add(R.id.groups, Integer.parseInt(words[1]),k,words[0]);
                 MenuItem myMenuItem = menu.findItem(R.id.groups).getSubMenu().findItem(Integer.parseInt(words[1]));
-                DownloadImageTask dn = new DownloadImageTask(myMenuItem);
-                dn.execute(AppConfig.IMAGESURL + words[2]);
+
                 myMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -457,49 +474,10 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
 
     }
+
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
-    }
-    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        private final WeakReference<MenuItem> menuItemReference;
-
-        public DownloadImageTask(MenuItem menuItem) {
-            menuItemReference = new WeakReference<>(menuItem);
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap bitmap) {
-
-            if (isCancelled()) {
-                bitmap = null;
-            }
-
-            if (menuItemReference != null) {
-                MenuItem menuitem = menuItemReference.get();
-                if (menuitem != null) {
-                    if (bitmap != null) {
-                        Drawable r = new BitmapDrawable(getResources(),bitmap);
-                        menuitem.setIcon(r);
-                    } else {
-                        //  Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
-                        // imageView.setImageDrawable(placeholder);
-                    }
-                }
-            }
-        }
     }
 
 }

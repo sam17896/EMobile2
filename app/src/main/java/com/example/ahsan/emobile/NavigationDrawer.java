@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -69,6 +70,10 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     SessionManager session;
     Menu menu;
     private static LayoutInflater inflater=null;
+    SwipeRefreshLayout swr;
+
+    boolean refresh = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +106,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 })
         );
 
+        swr = (SwipeRefreshLayout) findViewById(R.id.topicreferesh);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -115,6 +122,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         session = new SessionManager(getApplicationContext());
         username.setText(session.getUsername());
 
+        setTitle("Home");
+
         menu = navigationView.getMenu();
 
         MyTask task = new MyTask();
@@ -128,6 +137,25 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         MyTask2 task2 = new MyTask2();
         groups = new ArrayList<>();
         task2.execute("group");
+
+        swr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh = true;
+                MyTask task = new MyTask();
+                topicList = new ArrayList<>();
+                task.execute("topic");
+
+                MyTask1 task1 = new MyTask1();
+                friends = new ArrayList<>();
+                task1.execute("friend");
+
+                MyTask2 task2 = new MyTask2();
+                groups = new ArrayList<>();
+                task2.execute("group");
+
+            }
+        });
 
 
 
@@ -152,23 +180,41 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        switch (id){
+            case R.id.action_logout:
+                session.setLogin(false);
+                session.setUserId("");
+                session.setTopicID("");
+                session.setTopicAdmin("");
+                session.setTopicDescription("");
+                session.setTopicName("");
+                session.setProfile("");
 
-        if (id == R.id.action_logout) {
+                Intent i = new Intent(this, LoginActivity.class);
+                startActivity(i);
+                finish();
+                break;
 
-            session.setLogin(false);
-            session.setUserId("");
-            session.setTopicID("");
-            session.setTopicAdmin("");
-            session.setTopicDescription("");
-            session.setTopicName("");
-            session.setProfile("");
+            case R.id.action_chats:
+                Intent l = new Intent(NavigationDrawer.this,Thread.class);
+                startActivity(l);
+                break;
 
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivity(i);
-            finish();
+            case R.id.action_request:
+                Intent j = new Intent(this, FriendRequestActivity.class);
+                startActivity(j);
+                break;
 
-            return true;
+            case R.id.action_profile:
+                session.setProfile(session.getUserID());
+
+                Intent k = new Intent(this, ProfileView.class);
+                startActivity(k);
+                break;
+
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -187,12 +233,38 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 startActivity(i);
                 break;
             case R.id.chat:
+                Intent l = new Intent(NavigationDrawer.this,Thread.class);
+                startActivity(l);
 
                 break;
 
             case R.id.home:
                 Intent j = new Intent(NavigationDrawer.this,NavigationDrawer.class);
                 startActivity(j);
+                break;
+
+            case R.id.request:
+                Intent m = new Intent(NavigationDrawer.this,FriendRequestActivity.class);
+                startActivity(m);
+                break;
+
+            case R.id.create:
+                Intent n = new Intent(NavigationDrawer.this, CreateTopic.class);
+                startActivity(n);
+                break;
+
+            case R.id.action_logout:
+                session.setLogin(false);
+                session.setUserId("");
+                session.setTopicID("");
+                session.setTopicAdmin("");
+                session.setTopicDescription("");
+                session.setTopicName("");
+                session.setProfile("");
+
+                Intent k = new Intent(this, LoginActivity.class);
+                startActivity(k);
+                finish();
                 break;
         }
 
@@ -247,8 +319,15 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         /**
          * Updating parsed JSON data into ListView
          * */
+
         TopicAdapter adapter = new TopicAdapter(getApplicationContext() , topicList);
         TopicList.setAdapter(adapter);
+
+        if(refresh){
+            refresh = false;
+            swr.setRefreshing(false);
+        }
+
     }
 
     @Override
@@ -275,8 +354,10 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             int k=0;
+            menu.findItem(R.id.friends).getSubMenu().clear();
             for(String n : friends){
                 String words[] = n.split(":");
+
                 menu.findItem(R.id.friends).getSubMenu().add(R.id.friends, Integer.parseInt(words[1]),k,words[0]);
                 MenuItem myMenuItem = menu.findItem(R.id.friends).getSubMenu().findItem(Integer.parseInt(words[1]));
 
@@ -320,8 +401,10 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             int k=0;
+            menu.findItem(R.id.groups).getSubMenu().clear();
             for(String n : groups){
                 String words[] = n.split(":");
+
                 menu.findItem(R.id.groups).getSubMenu().add(R.id.groups, Integer.parseInt(words[1]),k,words[0]);
                 MenuItem myMenuItem = menu.findItem(R.id.groups).getSubMenu().findItem(Integer.parseInt(words[1]));
 

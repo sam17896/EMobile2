@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ahsan.emobile.AppConfig;
+import com.example.ahsan.emobile.Fragments.AddFragment;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.ProfileView;
 import com.example.ahsan.emobile.R;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
@@ -41,7 +44,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
     ImageButton b;
     private static LayoutInflater inflater = null;
     boolean s;
-    ImageView iv;
+    CircleImageView iv;
     public AddAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
         super(activity, resource,  names);
 
@@ -71,7 +74,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
         TextView name = (TextView) vi.findViewById(R.id.name);
         b = (ImageButton) vi.findViewById(R.id.add);
-        iv = (ImageView) vi.findViewById(R.id.imageView3);
+        iv = (CircleImageView) vi.findViewById(R.id.imageView3);
 
         String[] words = names.get(position).split(":");
 
@@ -83,7 +86,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             b.setVisibility(View.GONE);
         }else{
             b.setOnClickListener(this);
-            b.setTag(words[1]+":"+position);
+            b.setTag(words[1]+":" + position);
         }
 
         DownloadImageTask dn = new DownloadImageTask(iv);
@@ -99,9 +102,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             case R.id.add:
                 b = (ImageButton) v;
                 myTask task = new myTask();
-                String[] tags = v.getTag().toString().split(":");
-                currPos = Integer.getInteger(tags[1]);
-                task.execute(tags[0]);
+                task.execute(b.getTag().toString());
                 break;
 
             case R.id.name:
@@ -115,9 +116,13 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
     }
     private class myTask extends AsyncTask<String, String , String>{
 
+        String id;
+        int position;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
         }
 
         @Override
@@ -125,13 +130,19 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             super.onPostExecute(s);
             b.setImageResource(R.drawable.icon_added);
             b.setEnabled(false);
+            names.remove(position);
+            notifyDataSetChanged();
+
         }
 
         @Override
         protected String doInBackground(String... params) {
 
             HttpHandler sh = new HttpHandler();
-            String url = AppConfig.URL + "add_user.php?id=" + session.getTopicID() + "&userid=" + params[0];
+            String[] para = params[0].split(":");
+            id = para[0];
+            position = Integer.parseInt(para[1]);
+            String url = AppConfig.URL + "add_user.php?id=" + session.getTopicID() + "&userid=" + id;
             sh.makeServiceCall(url);
 
             return null;
@@ -139,9 +150,9 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
     }
     public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
+        private final WeakReference<CircleImageView> imageViewReference;
 
-        public DownloadImageTask(ImageView imageView) {
+        public DownloadImageTask(CircleImageView imageView) {
             imageViewReference = new WeakReference<>(imageView);
         }
 

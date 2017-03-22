@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bk"
+    tools:context="com.example.ahsan.emobile.CreateTopic">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="28dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="21dp"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignRight="@+id/tags"
+        android:layout_alignEnd="@+id/tags" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="92dp"
+        android:layout_alignBaseline="@+id/description"
+        android:layout_alignBottom="@+id/description"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="78dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/category"
+        android:layout_alignStart="@+id/category" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Category:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="148dp"
+        android:layout_alignBaseline="@+id/category"
+        android:layout_alignBottom="@+id/category"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="247dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Android, C++ "
+        android:inputType="textPersonName"
+        android:textColorHint="#FFFFFF"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="133dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/description"
+        android:layout_alignLeft="@+id/tags"
+        android:layout_alignStart="@+id/tags" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tags:"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="206dp"
+        android:layout_alignBaseline="@+id/tags"
+        android:layout_alignBottom="@+id/tags"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
+
+    <EditText
+        android:id="@+id/tags"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="java, c++"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="195dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/category"
+        android:layout_toRightOf="@+id/textView6"
+        android:layout_toEndOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Topic"
+        tools:layout_editor_absoluteX="256dp"
+        tools:layout_editor_absoluteY="249dp"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/tags"
+        android:layout_alignRight="@+id/tags"
+        android:layout_alignEnd="@+id/tags" />
+</RelativeLayout>

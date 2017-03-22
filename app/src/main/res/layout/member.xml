@@ -17,7 +17,9 @@
         android:textSize="18sp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageView4"
-        android:layout_toEndOf="@+id/imageView4" />
+        android:layout_toEndOf="@+id/imageView4"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
 
     <ImageButton
         android:id="@+id/remove"
@@ -30,12 +32,17 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/name" />
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imageView4"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/name"
-        app:srcCompat="@drawable/icon_profile" />
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/bk"/>
 </RelativeLayout>

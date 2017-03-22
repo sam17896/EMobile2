@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     <item android:title="@string/home"
         android:id="@+id/home"
         android:icon="@drawable/icon_home">
@@ -14,6 +15,15 @@
     <item android:title="@string/chats"
         android:id="@+id/chat"
         android:icon="@drawable/icon_groups">
+    </item>
+
+    <item android:title="@string/friend_request"
+        android:id="@+id/request"
+        android:icon="@drawable/icon_friend">
+    </item>
+    <item android:title="@string/create_topic"
+        android:id="@+id/create"
+        android:icon="@drawable/icon_create">
     </item>
 
     <item android:title="@string/appDraweritem1"
@@ -31,6 +41,13 @@
 
         </menu>
     </item>
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="102"
+        android:title="@string/logout"
+        android:icon="@drawable/icon_logout"
+        app:showAsAction="never" />
 
 
 </menu>

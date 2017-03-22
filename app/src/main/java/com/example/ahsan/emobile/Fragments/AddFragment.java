@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class AddFragment extends Fragment {
     boolean s;
     SessionManager session;
     String jsonStr;
+    SwipeRefreshLayout srl;
+    boolean refresh = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +47,18 @@ public class AddFragment extends Fragment {
 
         map = new ArrayList<>();
 
+        srl = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh);
+
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                map = new ArrayList<String>();
+                MyTask task = new MyTask();
+                task.execute();
+                refresh = true;
+            }
+        });
+
         MyTask task = new MyTask();
         task.execute();
 
@@ -53,7 +68,7 @@ public class AddFragment extends Fragment {
         Toast.makeText(getContext().getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
-    private class MyTask extends AsyncTask<String,String,String> {
+    public class MyTask extends AsyncTask<String,String,String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -72,6 +87,10 @@ public class AddFragment extends Fragment {
         @Override
         protected void onPostExecute(String str) {
             super.onPostExecute(str);
+            if(refresh){
+                refresh = false;
+                srl.setRefreshing(false);
+            }
 
 
             ListAdapter adapter = new AddAdapter(getActivity(),R.layout.add, map ,s);

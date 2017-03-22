@@ -13,10 +13,18 @@
         android:title="@string/chats"
         android:icon="@drawable/icon_groups"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_request"
+        android:orderInCategory="103"
+        android:title="@string/chats"
+        android:icon="@drawable/icon_request"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_profile"
         android:orderInCategory="101"
         android:title="@string/profile"
         android:icon="@drawable/icon_profile"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

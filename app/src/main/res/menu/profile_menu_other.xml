@@ -7,4 +7,12 @@
         android:title="@string/add"
         android:icon="@drawable/add_icon"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_remove"
+        android:orderInCategory="101"
+        android:title="@string/remove"
+        android:icon="@drawable/icon_reject"
+        app:showAsAction="never" />
+
 </menu>

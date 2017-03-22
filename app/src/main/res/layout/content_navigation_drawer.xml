@@ -9,6 +9,10 @@
     tools:context="com.example.ahsan.emobile.NavigationDrawer"
     tools:showIn="@layout/app_bar_navigation_drawer"
     android:background="@color/bk">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/topicreferesh">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/topiclist"
@@ -16,4 +20,5 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

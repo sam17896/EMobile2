@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_message"
         android:orderInCategory="105"
-        android:title="@string/edit"
+        android:title="@string/message"
         android:icon="@drawable/icon_chats"
         app:showAsAction="always"/>
     <item

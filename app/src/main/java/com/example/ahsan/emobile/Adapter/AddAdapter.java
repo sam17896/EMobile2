@@ -39,7 +39,6 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
     private Activity activity;
     private ArrayList<String> names;
-    int currPos;
     SessionManager session;
     ImageButton b;
     private static LayoutInflater inflater = null;

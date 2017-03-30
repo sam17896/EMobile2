@@ -82,8 +82,8 @@ public class FRAdapter extends ArrayAdapter implements View.OnClickListener{
         name.setTag(words[2]);
         name.setOnClickListener(this);
 
-        b.setTag(words[0]);
-        r.setTag(words[0]);
+        b.setTag(words[0]+":"+position);
+        r.setTag(words[0]+":"+position);
 
         b.setOnClickListener(this);
         r.setOnClickListener(this);
@@ -122,6 +122,8 @@ public class FRAdapter extends ArrayAdapter implements View.OnClickListener{
     }
     private class myTask extends AsyncTask<String, String , String>{
 
+        String id;
+        int postion;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -132,13 +134,21 @@ public class FRAdapter extends ArrayAdapter implements View.OnClickListener{
             super.onPostExecute(s);
             b.setImageResource(R.drawable.icon_added);
             b.setEnabled(false);
+            names.remove(postion);
+            notifyDataSetChanged();
+
         }
 
         @Override
         protected String doInBackground(String... params) {
 
             HttpHandler sh = new HttpHandler();
-            String url = AppConfig.URL + "ar.php?fid=" + params[0];
+
+            String[] para = params[0].split(":");
+            id = para[0];
+            postion = Integer.parseInt(para[1]);
+
+            String url = AppConfig.URL + "ar.php?fid=" + id;
             sh.makeServiceCall(url);
 
             return null;
@@ -147,6 +157,8 @@ public class FRAdapter extends ArrayAdapter implements View.OnClickListener{
     }
 
     private class myTask1 extends AsyncTask<String, String , String>{
+        String id;
+        int position;
 
         @Override
         protected void onPreExecute() {
@@ -158,13 +170,20 @@ public class FRAdapter extends ArrayAdapter implements View.OnClickListener{
             super.onPostExecute(s);
             r.setImageResource(R.drawable.icon_added);
             r.setEnabled(false);
+            names.remove(position);
+            notifyDataSetChanged();
         }
 
         @Override
         protected String doInBackground(String... params) {
 
             HttpHandler sh = new HttpHandler();
-            String url = AppConfig.URL + "rr.php?fid=" + params[0];
+
+            String[] para = params[0].split(":");
+            id = para[0];
+            position = Integer.parseInt(para[1]);
+
+            String url = AppConfig.URL + "rr.php?fid=" + id;
             sh.makeServiceCall(url);
 
             return null;

@@ -83,7 +83,7 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
         if(!s || words[1].equals(session.getUserID())){
             b.setVisibility(View.GONE);
         }else{
-            b.setTag(words[1]);
+            b.setTag(words[1]+":"+position);
             b.setOnClickListener(this);
         }
         DownloadImageTask dn = new DownloadImageTask(iv);
@@ -99,7 +99,7 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
             case R.id.remove:
                 b = (ImageButton) v;
                 myTask task = new myTask();
-                task.execute(v.getTag().toString() + ":" + v.getId());
+                task.execute(v.getTag().toString());
 
                 break;
             case R.id.name:
@@ -111,6 +111,8 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
         }
     }
     private class myTask extends AsyncTask<String, String , String> {
+        String id;
+        int position;
 
         @Override
         protected void onPreExecute() {
@@ -122,18 +124,24 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
 
             HttpHandler sh = new HttpHandler();
 
-            String words[] = params[0].split(":");
+            String[] para = params[0].split(":");
+            id = para[0];
+            position = Integer.parseInt(para[1]);
 
-            String url = AppConfig.URL + "remove.php?id=" + session.getTopicID() + "&userid=" + words[0];
+            String url = AppConfig.URL + "remove.php?id=" + session.getTopicID() + "&userid=" + id;
             sh.makeServiceCall(url);
 
-            return words[1];
+            return null;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            b.setImageResource(R.drawable.icon_added);
             b.setEnabled(false);
+            names.remove(position);
+            notifyDataSetChanged();
+
         }
 
     }

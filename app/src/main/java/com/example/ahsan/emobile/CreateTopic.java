@@ -1,7 +1,9 @@
 package com.example.ahsan.emobile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,12 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_topic);
+
+        ActionBar ab = getSupportActionBar();
+        setTitle("Create New Topic");
+      //  ab.setBackgroundDrawable();
+
+
         b = (Button) findViewById(R.id.create);
         name = (TextView) findViewById(R.id.name);
         description = (TextView) findViewById(R.id.description);
@@ -33,8 +41,6 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
 
         session = new SessionManager(getBaseContext().getApplicationContext());
 
-        setTitle("Create Topic");
-        android.app.ActionBar ab = getActionBar();
 
         b.setOnClickListener(this);
 

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class MemberFragment extends Fragment {
     SessionManager session;
     String jsonStr;
     public ListAdapter adapter;
+    SwipeRefreshLayout srl;
+    boolean refresh = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +45,17 @@ public class MemberFragment extends Fragment {
         session = new SessionManager(getContext().getApplicationContext());
         lv = (ListView) rootView.findViewById(R.id.member);
 
+
+        srl = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                map = new ArrayList<>();
+                refresh = true;
+                MyTask task = new MyTask();
+                task.execute();
+            }
+        });
         map = new ArrayList<>();
 
         MyTask task = new MyTask();
@@ -72,7 +86,10 @@ public class MemberFragment extends Fragment {
         @Override
         protected void onPostExecute(String str) {
             super.onPostExecute(str);
-
+            if(refresh){
+                refresh = false;
+                srl.setRefreshing(false);
+            }
 
             adapter = new MemberAdapter(getActivity(),R.layout.member, map ,s);
             lv.setAdapter(adapter);

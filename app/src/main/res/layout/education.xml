@@ -16,22 +16,22 @@
         android:layout_toEndOf="@+id/imageView8"
         android:layout_toRightOf="@+id/imageView8"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textcolor"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/education_year"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:text="TextView"
-        android:textSize="20dp"
         android:layout_alignBaseline="@+id/education_institute"
         android:layout_alignBottom="@+id/education_institute"
-        android:layout_toRightOf="@+id/education_institute"
-        android:layout_toEndOf="@+id/education_institute"
         android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/education_institute"
+        android:layout_toRightOf="@+id/education_institute"
+        android:text="TextView"
+        android:textColor="@color/textcolor"
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/imageView8"

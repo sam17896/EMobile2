@@ -3,8 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bk">
-<ListView
+<android.support.v4.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/interest"></ListView>
+    android:id="@+id/refresh">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/interest"/>
+
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

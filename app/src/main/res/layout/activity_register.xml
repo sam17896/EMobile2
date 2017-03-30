@@ -11,26 +11,32 @@
         android:id="@+id/username"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/password"
         android:layout_marginTop="171dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
-        android:visibility="visible"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:textColor="@color/textcolor"
+        android:textColorHint="@color/hintcolor"
+        android:textColorLink="@color/hintcolor"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:visibility="visible"
-        android:layout_below="@+id/username"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/textcolor"
+        android:textColorHint="@color/hintcolor"
+        android:textColorLink="@color/hintcolor"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/rgstrbtn"
@@ -68,6 +74,9 @@
         android:layout_marginBottom="53dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/textcolor"
+        android:textColorHint="@color/hintcolor"
+        android:textColorLink="@color/hintcolor" />
 
 </RelativeLayout>

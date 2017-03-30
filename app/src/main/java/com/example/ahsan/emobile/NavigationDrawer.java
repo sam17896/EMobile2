@@ -81,8 +81,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         TopicList = (RecyclerView) findViewById(R.id.topiclist);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         TopicList.setLayoutManager(mLayoutManager);

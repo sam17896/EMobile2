@@ -15,7 +15,7 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="13dp"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textcolor"
         android:textSize="18sp" />
 
     <ImageView
@@ -23,9 +23,9 @@
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/icon_interest"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
         android:layout_alignTop="@+id/interest"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
 </RelativeLayout>

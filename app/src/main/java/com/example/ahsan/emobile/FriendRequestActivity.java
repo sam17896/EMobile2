@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -24,15 +25,29 @@ public class FriendRequestActivity extends AppCompatActivity {
     ArrayList<String> map;
     ListView lv;
     ProgressDialog pd;
+    SwipeRefreshLayout srl;
+    boolean refresh = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_request);
-        map = new ArrayList<>();
         pd = new ProgressDialog(this);
         lv  = (ListView) findViewById(R.id.requests);
-         session = new SessionManager(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
         setTitle("Friend Request");
+        srl = (SwipeRefreshLayout) findViewById(R.id.refresh);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                map = new ArrayList<>();
+                refresh = true;
+                mytask task = new mytask();
+                task.execute();
+            }
+        });
+
+
+        map = new ArrayList<>();
         mytask task = new mytask();
         task.execute();
     }
@@ -87,6 +102,12 @@ public class FriendRequestActivity extends AppCompatActivity {
 
             if(pd.isShowing()){
                 pd.hide();
+            }
+
+
+            if(refresh){
+                refresh = false;
+                srl.setRefreshing(false);
             }
 
             ListAdapter la = new FRAdapter(FriendRequestActivity.this, R.layout.fr , map, false);

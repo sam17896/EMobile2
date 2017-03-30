@@ -19,8 +19,9 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-    private String[] tabs = { "Details", "Members", "Add", "Request", "Chat" };
-    public  String[] tabsAdd = {};
+    private String[] tabadmin = { "Details", "Members", "Add", "Request", "Chat" };
+    public  String[] tabsmember = {"Details" , "Members", "Chat"};
+    public String[] tabsnmember = {"Details", "Members"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +29,12 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getSupportActionBar();
+
+
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#009688")));
@@ -40,15 +43,24 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
 
         // TODO: Implent a method to display the tabs according to the users;
 
-        addTabs();
+        addTabs(0);
 
     }
-    public void addTabs(){
-
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
+    public void addTabs(int status){
+        switch (status){
+            case 0:
+                for (String tab_name : tabadmin) {
+                    actionBar.addTab(actionBar.newTab().setText(tab_name)
+                            .setTabListener(this));
+                }
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
         }
+
+
     }
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {

@@ -31,4 +31,10 @@
     <string name="friend_request">Friend Request</string>
     <string name="create_topic">Create Topic</string>
     <string name="message">Message</string>
+    <string name="topic_title">Topic Title</string>
+    <string name="topic_description">Topic Description</string>
+    <string name="topicadmin">TopicAdmin</string>
+    <string name="enter_message">Enter message</string>
+    <string name="send">SEND</string>
+    <string name="e_discussion">E-Discussion</string>
 </resources>

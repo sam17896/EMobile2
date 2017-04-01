@@ -92,9 +92,11 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                     if(!error){
                         String userid = jObj.getString("userid");
                         String username = jObj.getString("username");
+                        String pic = jObj.getString("pic");
                         session.setLogin(true);
                         session.setUserId(userid);
                         session.setUsername(username);
+                        session.setPpic(pic);
 
                         Intent intent = new Intent(RegisterActivity.this, NavigationDrawer.class);
                         startActivity(intent);

@@ -7,4 +7,6 @@
     <color name="toolbar">#478600</color>
     <color name="textcolor">#ffffff</color>
     <color name="hintcolor">#478600</color>
+    <color name="icon_color">#FFFFFF</color>
+    <color name="bg_bubble_self">#E1E1E1</color>
 </resources>

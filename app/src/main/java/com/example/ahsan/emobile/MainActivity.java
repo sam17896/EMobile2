@@ -9,19 +9,21 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView tv;
-    Button lg, rg, hm, pr , tp;
+    TextView tv, ip;
+    Button lg, rg, hm, pr , tp,setip;
     SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         tv = (TextView) findViewById(R.id.ID);
+        ip = (TextView) findViewById(R.id.ip);
         rg = (Button) findViewById(R.id.rgtr);
         lg = (Button) findViewById(R.id.lg);
         hm = (Button) findViewById(R.id.hm);
         pr = (Button) findViewById(R.id.pr);
         tp = (Button) findViewById(R.id.tp);
+        setip = (Button) findViewById(R.id.setip);
 
 
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hm.setOnClickListener(this);
         pr.setOnClickListener(this);
         tp.setOnClickListener(this);
+        setip.setOnClickListener(this);
 
     }
 
@@ -79,6 +82,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i = new Intent(this, TopicView.class);
                 startActivity(i);
                 finish();
+                break;
+            case R.id.setip:
+                String ipAdd = ip.getText().toString().trim();
+                AppConfig.URL = "http://" + ipAdd + ":84/e-discussionmobile/";
+                AppConfig.IMAGESURL = "http://" + ipAdd + ":84/e-discussionmobile/uploaded_files/";
+
                 break;
 
 

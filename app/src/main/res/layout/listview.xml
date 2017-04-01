@@ -20,27 +20,28 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/topic_icon"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
+                android:layout_toEndOf="@+id/topic_icon"
+                android:layout_toRightOf="@+id/topic_icon"
                 android:gravity="center_vertical"
-                android:text="TextView"
+                android:text="@string/topic_title"
                 android:textColor="@color/textcolor"
-                android:textSize="20dp" />
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/title"
                 android:layout_alignStart="@+id/title"
                 android:layout_below="@+id/title"
+                android:layout_toEndOf="@+id/topic_icon"
+                android:layout_toRightOf="@+id/topic_icon"
                 android:layout_marginTop="11dp"
-                android:text="TextView"
+                android:text="@string/topic_description"
+                android:maxLines="1"
                 android:textColor="@color/textcolor" />
 
             <TextView
@@ -63,8 +64,10 @@
                 android:layout_alignLeft="@+id/description"
                 android:layout_alignStart="@+id/description"
                 android:layout_alignTop="@+id/id"
+                android:layout_toEndOf="@+id/topic_icon"
+                android:layout_toRightOf="@+id/topic_icon"
                 android:paddingBottom="10dp"
-                android:text="TextView"
+                android:text="@string/topicadmin"
                 android:textColor="@color/textcolor" />
 
 

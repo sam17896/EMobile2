@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class FriendRequestActivity extends AppCompatActivity {
+public class FriendRequestActivity extends AppCompatActivity{
 
    SessionManager session;
     ArrayList<String> map;
@@ -51,6 +52,7 @@ public class FriendRequestActivity extends AppCompatActivity {
         mytask task = new mytask();
         task.execute();
     }
+
 
     public class mytask extends AsyncTask<String, String , String>{
 

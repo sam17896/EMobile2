@@ -25,6 +25,7 @@ public class SessionManager {
     private static final String KEY_TOPIC_DESCRIPTION = "topic_description";
     private static final String KEY_TOPIC_TITLE = "topic_titile";
     private static final String KEY_PROFILE = "profile";
+    private static final String KEY_PIC = "pic";
 
 
 
@@ -92,6 +93,17 @@ public class SessionManager {
 
         Log.d(TAG, "Topic ID is set");
 
+    }
+    public void setPpic(String pic){
+        editor.putString(KEY_PIC,pic);
+        editor.commit();
+
+        Log.d(TAG, "Picture is set");
+
+    }
+
+    public String getPpic(){
+        return pref.getString(KEY_PIC,"-1");
     }
 
     public String getTopicID(){

@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ahsan.emobile.Adapter.ThreadAdapter;
@@ -47,6 +48,11 @@ public class Thread extends AppCompatActivity {
                     @Override public void onItemClick(View view, int position) {
                         if(view==null)
                             view = inflater.inflate(R.layout.layout_thread, null);
+                        TextView name = (TextView) view.findViewById(R.id.name);
+                        session.setProfile(name.getTag().toString());
+
+                        Intent k = new Intent(Thread.this, MessageActivity.class);
+                        startActivity(k);
 
                     }
 

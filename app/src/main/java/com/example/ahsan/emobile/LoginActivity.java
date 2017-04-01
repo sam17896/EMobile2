@@ -44,33 +44,21 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        // SQLite database handler
- //       db = new SQLiteHandler(getApplicationContext());
-
-        // Session manager
         session = new SessionManager(getApplicationContext());
 
-        // Check if user is already logged in or not
         if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
 
-        // Login button Click Event
         btnLogin.setOnClickListener(this);
 
-        // Link to Register Screen
         btnLinkToRegister.setOnClickListener(this);
 
     }
 
-    /**
-     * function to verify login details in mysql db
-     * */
     private void checkLogin(final String email, final String password) {
-        // Tag used to cancel the request
         String tag_string_req = "req_login";
 
         pDialog.setMessage("Logging in ...");
@@ -88,18 +76,15 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     boolean error = jObj.getBoolean("error");
                     String userid = jObj.getString("userid");
                     String username = jObj.getString("username");
+                    String pic = jObj.getString("pic");
 
-                    //showMessage("yaha tak sahi hai ");
                     if (!error) {
 
                         session.setLogin(true);
                         session.setUserId(userid);
                         session.setUsername(username);
-
-                        // Inserting row in users table
-         //               db.addUser(name, email, uid, created_at);
-
-                        // Launch main activity
+                        session.setPpic(pic);
+                        
                         Intent intent = new Intent(LoginActivity.this, NavigationDrawer.class);
                         startActivity(intent);
                         finish();

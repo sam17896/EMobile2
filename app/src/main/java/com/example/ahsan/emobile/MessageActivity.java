@@ -1,25 +1,19 @@
-package com.example.ahsan.emobile.Fragments;
+package com.example.ahsan.emobile;
 
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.ahsan.emobile.Adapter.ChatTopicAdapter;
-import com.example.ahsan.emobile.AppConfig;
-import com.example.ahsan.emobile.HttpHandler;
-import com.example.ahsan.emobile.Message;
-import com.example.ahsan.emobile.R;
-import com.example.ahsan.emobile.SessionManager;
+import com.example.ahsan.emobile.Fragments.ChatFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,11 +23,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class ChatFragment extends Fragment {
+public class MessageActivity extends AppCompatActivity {
 
-    private String TAG = ChatFragment.class.getSimpleName();
-
-    private String chatRoomId;
     private RecyclerView recyclerView;
     private ChatTopicAdapter mAdapter;
     private ArrayList<Message> messageArrayList;
@@ -42,27 +33,27 @@ public class ChatFragment extends Fragment {
     private SessionManager session;
     String selfUserId;
 
+    public MessageActivity() {
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_message);
 
-        View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+        inputMessage = (EditText) findViewById(R.id.message);
+        btnSend = (ImageButton) findViewById(R.id.btn_send);
 
-        inputMessage = (EditText) rootView.findViewById(R.id.message);
-        btnSend = (ImageButton) rootView.findViewById(R.id.btn_send);
+        session = new SessionManager(getApplicationContext());
 
-        session = new SessionManager(getContext().getApplicationContext());
-
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         messageArrayList = new ArrayList<>();
 
         // self user id is to identify the message owner
         selfUserId = session.getUserID();
 
-
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext().getApplicationContext(), 1);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -77,7 +68,7 @@ public class ChatFragment extends Fragment {
         loadMessage lm = new loadMessage();
         lm.execute();
 
-        return rootView;
+
     }
 
     private void sendMessage() {
@@ -111,7 +102,7 @@ public class ChatFragment extends Fragment {
         protected String doInBackground(String... params) {
             String url = null;
             try {
-                url = AppConfig.URL + "sendmessage.php?tid=" + session.getTopicID() + "&id=" + session.getUserID() + "&message=" + URLEncoder.encode(message, "UTF-8");
+                url = AppConfig.URL + "sendthreadmsg.php?pid=" + session.getProfile() + "&id=" + session.getUserID() + "&message=" + URLEncoder.encode(message, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -129,7 +120,7 @@ public class ChatFragment extends Fragment {
 
     }
 
-    public class loadMessage extends AsyncTask<String,String,String>{
+    public class loadMessage extends AsyncTask<String,String,String> {
 
         @Override
         protected void onPreExecute() {
@@ -138,14 +129,19 @@ public class ChatFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String url = AppConfig.URL + "loadmessage.php?id=" + session.getTopicID();
+            String url = AppConfig.URL + "clearnot.php?id=" + session.getProfile() + "&uid=" + session.getUserID();
             HttpHandler sh = new HttpHandler();
+            sh.makeServiceCall(url);
+
+            url = AppConfig.URL + "loadthreadmsg.php?id=" + session.getUserID() + "&uid=" + session.getProfile();
             String response = sh.makeServiceCall(url);
 
             if(response!=null){
                 try{
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray message = jsonObject.getJSONArray("messages");
+                    messageArrayList.clear();
+
 
                     for(int i=0;i<message.length();i++){
                         JSONObject jso = message.getJSONObject(i);
@@ -175,13 +171,12 @@ public class ChatFragment extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            mAdapter = new ChatTopicAdapter(getContext().getApplicationContext(), messageArrayList, selfUserId);
+            mAdapter = new ChatTopicAdapter(getApplicationContext(), messageArrayList, selfUserId);
             recyclerView.setAdapter(mAdapter);
-            recyclerView.scrollToPosition(messageArrayList.size() -1);
+            recyclerView.scrollToPosition(messageArrayList.size()-1);
 
             updatemessage  up = new updatemessage();
             up.execute();
-
 
         }
     }
@@ -195,7 +190,7 @@ public class ChatFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String url = AppConfig.URL + "updatetopicmessage.php?id=" + session.getTopicID();
+            String url = AppConfig.URL + "updatemessage.php?id=" + session.getUserID() + "&uid=" + session.getProfile();
             HttpHandler sh = new HttpHandler();
 
             String response = sh.makeServiceCall(url);
@@ -204,7 +199,7 @@ public class ChatFragment extends Fragment {
                 try{
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray message = jsonObject.getJSONArray("messages");
-                    //         messageArrayList.clear();
+           //         messageArrayList.clear();
 
 
                     for(int i=0;i<message.length();i++){
@@ -239,7 +234,7 @@ public class ChatFragment extends Fragment {
                 newmsg = false;
                 recyclerView.scrollToPosition(messageArrayList.size() - 1);
             }
-            //   Toast.makeText(MessageActivity.this, "Hogya", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(MessageActivity.this, "Hogya", Toast.LENGTH_SHORT).show();
             updatemessage  up = new updatemessage();
             up.execute();
 

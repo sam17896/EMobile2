@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -33,6 +34,8 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
     public  String[] tabsmember = {"Details" , "Members", "Chat"};
     public String[] tabsnmember = {"Details", "Members"};
     MenuItem item1;
+    SwipeRefreshLayout srl;
+    boolean refresh = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,6 +188,10 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            if(refresh){
+                refresh = false;
+                srl.setRefreshing(false);
+            }
 
             switch(status){
                 case 0:
@@ -201,7 +208,7 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
                     break;
 
             }
-
+            actionBar.removeAllTabs();
             if(admin) {
                 TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
                 addTabs(0);

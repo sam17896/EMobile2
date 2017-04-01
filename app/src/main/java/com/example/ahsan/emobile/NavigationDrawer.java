@@ -65,6 +65,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     RecyclerView TopicList;
     DrawerLayout drawer;
     TextView username;
+    ImageView hImage;
     NavigationView navigationView;
     ProgressDialog pDialog;
     SessionManager session;
@@ -116,6 +117,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         View header = navigationView.getHeaderView(0);
         username = (TextView) header.findViewById(R.id.username);
+        hImage = (ImageView) header.findViewById(R.id.userimage);
 
         session = new SessionManager(getApplicationContext());
         username.setText(session.getUsername());
@@ -136,6 +138,9 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         groups = new ArrayList<>();
         task2.execute("group");
 
+        DownloadImageTask dn = new DownloadImageTask(hImage);
+        dn.execute(AppConfig.IMAGESURL + session.getPpic());
+
         swr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -155,8 +160,45 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
             }
         });
 
+    }
 
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
 
+        public DownloadImageTask(ImageView imageView) {
+            imageViewReference = new WeakReference<>(imageView);
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap bitmap) {
+
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            if (imageViewReference != null) {
+                ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    if (bitmap != null) {
+                        imageView.setImageBitmap(bitmap);
+                    } else {
+
+                    }
+                }
+            }
+        }
     }
 
     @Override

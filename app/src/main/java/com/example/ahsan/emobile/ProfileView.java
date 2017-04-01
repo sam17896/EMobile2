@@ -70,6 +70,8 @@ public class ProfileView extends ActionBarActivity implements ActionBar.TabListe
         }
 
         if(id == R.id.action_message){
+            Intent k = new Intent(ProfileView.this, MessageActivity.class);
+            startActivity(k);
 
             return true;
         }

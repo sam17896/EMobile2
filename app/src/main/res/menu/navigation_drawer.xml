@@ -3,28 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_logout"
+        android:icon="@drawable/icon_logout"
         android:orderInCategory="102"
         android:title="@string/logout"
-        android:icon="@drawable/icon_logout"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_chats"
+        android:icon="@drawable/icon_groups"
         android:orderInCategory="100"
         android:title="@string/chats"
-        android:icon="@drawable/icon_groups"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_request"
+        android:icon="@drawable/icon_request"
         android:orderInCategory="103"
         android:title="@string/chats"
-        android:icon="@drawable/icon_request"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_profile"
+        android:icon="@drawable/icon_profile"
         android:orderInCategory="101"
         android:title="@string/profile"
-        android:icon="@drawable/icon_profile"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/icon_search"
+        android:orderInCategory="104"
+        android:title="@string/string_search"
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

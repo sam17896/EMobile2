@@ -1,10 +1,12 @@
 package com.example.ahsan.emobile.Adapter;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,38 +19,19 @@ import com.example.ahsan.emobile.R;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyViewHolder> {
 
     private static String TAG = ChatTopicAdapter.class.getSimpleName();
-
+    private static String today;
     private String userId;
     private int SELF = 99999999;
-    private static String today;
-
     private Context mContext;
     private ArrayList<Message> messageArrayList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView message, timestamp;
-        ImageView icon;
-
-        public MyViewHolder(View view) {
-            super(view);
-            message = (TextView) itemView.findViewById(R.id.message);
-            timestamp = (TextView) itemView.findViewById(R.id.timestamp);
-            icon = (ImageView) itemView.findViewById(R.id.chat_icon);
-        }
-    }
-
+    private LruCache<String, Bitmap> cache;
 
     public ChatTopicAdapter(Context mContext, ArrayList<Message> messageArrayList, String userId) {
         this.mContext = mContext;
@@ -57,6 +40,10 @@ public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyVi
 
         Calendar calendar = Calendar.getInstance();
         today = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+
+        final int maxMemory = (int) Runtime.getRuntime().maxMemory() / 1024;
+        final int cacheSzie = maxMemory / 8;
+        cache = new LruCache<>(cacheSzie);
     }
 
     @Override
@@ -75,7 +62,6 @@ public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyVi
         return new MyViewHolder(itemView);
     }
 
-
     @Override
     public int getItemViewType(int position) {
         Message message = messageArrayList.get(position);
@@ -86,16 +72,17 @@ public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyVi
         return position;
     }
 
-
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Message message = messageArrayList.get(position);
         holder.message.setText(message.getText());
-
         holder.timestamp.setText(message.getUsername());
-
-        DownloadImageTask downloadImageTask = new DownloadImageTask(holder.icon);
-        downloadImageTask.execute(AppConfig.IMAGESURL + message.getUserpic());
+        if (cache.get(message.getUserpic()) != null) {
+            holder.icon.setImageBitmap(cache.get(message.getUserpic()));
+        } else {
+            DownloadImageTask downloadImageTask = new DownloadImageTask(message, holder.icon);
+            downloadImageTask.execute(AppConfig.IMAGESURL + message.getUserpic());
+        }
 
     }
 
@@ -104,11 +91,25 @@ public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyVi
         return messageArrayList.size();
     }
 
-    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView message, timestamp;
+        ImageView icon;
 
-        public DownloadImageTask(ImageView imageView) {
-            imageViewReference = new WeakReference<>(imageView);
+        public MyViewHolder(View view) {
+            super(view);
+            message = (TextView) itemView.findViewById(R.id.message);
+            timestamp = (TextView) itemView.findViewById(R.id.timestamp);
+            icon = (ImageView) itemView.findViewById(R.id.chat_icon);
+        }
+    }
+
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private Message message;
+        private WeakReference<ImageView> image;
+
+        public DownloadImageTask(Message msg, ImageView img) {
+            message = msg;
+            image = new WeakReference<ImageView>(img);
         }
 
         protected Bitmap doInBackground(String... urls) {
@@ -132,11 +133,13 @@ public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyVi
                 bitmap = null;
             }
 
-            if (imageViewReference != null) {
-                ImageView imageView = imageViewReference.get();
+            if (image != null) {
+                ImageView imageView = image.get();
                 if (imageView != null) {
                     if (bitmap != null) {
                         imageView.setImageBitmap(bitmap);
+                        message.setBitmap(bitmap);
+                        cache.put(message.getUserpic(), bitmap);
                     } else {
 
                     }
@@ -144,5 +147,4 @@ public class ChatTopicAdapter extends RecyclerView.Adapter<ChatTopicAdapter.MyVi
             }
         }
     }
-
 }

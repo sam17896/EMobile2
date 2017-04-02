@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bk">
+    android:background="@color/bk"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/education_institute"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
+        android:layout_alignBottom="@id/imageView8"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/imageView8"
         android:layout_toRightOf="@+id/imageView8"
@@ -37,10 +37,11 @@
         android:id="@+id/imageView8"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/icon_education"
-        android:layout_alignTop="@+id/education_institute"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        android:src="@drawable/icon_education" />
 </RelativeLayout>

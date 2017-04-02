@@ -1,19 +1,16 @@
 package com.example.ahsan.emobile;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.ahsan.emobile.Adapter.ChatTopicAdapter;
-import com.example.ahsan.emobile.Fragments.ChatFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,13 +22,13 @@ import java.util.ArrayList;
 
 public class MessageActivity extends AppCompatActivity {
 
+    String selfUserId;
     private RecyclerView recyclerView;
     private ChatTopicAdapter mAdapter;
     private ArrayList<Message> messageArrayList;
     private EditText inputMessage;
     private ImageButton btnSend;
     private SessionManager session;
-    String selfUserId;
 
     public MessageActivity() {
     }
@@ -181,6 +178,7 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
+
     public class updatemessage extends AsyncTask<String,String,String>{
         boolean newmsg = false;
         @Override
@@ -206,7 +204,7 @@ public class MessageActivity extends AppCompatActivity {
                         JSONObject jso = message.getJSONObject(i);
                         newmsg = true;
 
-                        Message msg = new Message();
+                        final Message msg = new Message();
 
                         msg.setText(jso.getString("text"));
                         msg.setTime(jso.getString("time"));
@@ -234,7 +232,6 @@ public class MessageActivity extends AppCompatActivity {
                 newmsg = false;
                 recyclerView.scrollToPosition(messageArrayList.size() - 1);
             }
-         //   Toast.makeText(MessageActivity.this, "Hogya", Toast.LENGTH_SHORT).show();
             updatemessage  up = new updatemessage();
             up.execute();
 

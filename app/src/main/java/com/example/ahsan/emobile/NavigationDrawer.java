@@ -1,64 +1,45 @@
 package com.example.ahsan.emobile;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.ahsan.emobile.Fragments.DetailFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
         ,View.OnClickListener, AdapterView.OnItemClickListener{
 
+    private static LayoutInflater inflater = null;
     ArrayList<Topic> topicList;
     ArrayList<String> friends;
     ArrayList<String> groups;
@@ -70,7 +51,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     ProgressDialog pDialog;
     SessionManager session;
     Menu menu;
-    private static LayoutInflater inflater=null;
     SwipeRefreshLayout swr;
 
     boolean refresh = false;
@@ -162,45 +142,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
     }
 
-    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
-
-        public DownloadImageTask(ImageView imageView) {
-            imageViewReference = new WeakReference<>(imageView);
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap bitmap) {
-
-            if (isCancelled()) {
-                bitmap = null;
-            }
-
-            if (imageViewReference != null) {
-                ImageView imageView = imageViewReference.get();
-                if (imageView != null) {
-                    if (bitmap != null) {
-                        imageView.setImageBitmap(bitmap);
-                    } else {
-
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -250,6 +191,12 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
                 Intent k = new Intent(this, ProfileView.class);
                 startActivity(k);
+                break;
+
+            case R.id.action_search:
+                Intent n = new Intent(this, Search.class);
+                startActivity(n);
+
                 break;
 
         }
@@ -331,6 +278,162 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
     }
 
+    private void showMessage(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
+    private void LoadFriend(String url, HttpHandler sh) {
+        String jsonStr = sh.makeServiceCall(url);
+
+        if (jsonStr != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(jsonStr);
+
+                JSONArray friend = jsonObj.getJSONArray("friend");
+
+                for (int i = 0; i < friend.length(); i++) {
+                    JSONObject c = friend.getJSONObject(i);
+                    friends.add(c.getString("name") + ":" + c.getString("userid") + ":" + c.getString("pic"));
+                }
+            } catch (final JSONException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showMessage("Json parsing error: " + e.getMessage());
+                    }
+                });
+            }
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showMessage("Couldn't get json from server. Check LogCat for possible errors!");
+                }
+            });
+        }
+
+    }
+
+    private void LoadGroup(String url, HttpHandler sh) {
+        final String jsonStr = sh.makeServiceCall(url);
+        if (jsonStr != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(jsonStr);
+
+                JSONArray group = jsonObj.getJSONArray("group");
+
+                for (int i = 0; i < group.length(); i++) {
+                    JSONObject c = group.getJSONObject(i);
+                    groups.add(c.getString("name") + ":" + c.getString("id") + ":" + c.getString("img"));
+                }
+
+            } catch (final JSONException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showMessage("Json parsing error: " + e.getMessage());
+                    }
+                });
+            }
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showMessage("Couldn't get json from server. Check LogCat for possible errors!");
+                }
+            });
+        }
+
+    }
+
+    private void LoadTopic(String url, HttpHandler sh) {
+
+        final String jsonStr = sh.makeServiceCall(url);
+        if (jsonStr != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(jsonStr);
+
+                JSONArray topic = jsonObj.getJSONArray("topic");
+
+                for (int i = 0; i < topic.length(); i++) {
+                    JSONObject c = topic.getJSONObject(i);
+
+                    String id = c.getString("id");
+                    String name = c.getString("name");
+                    String admin = c.getString("admin");
+                    String description = c.getString("description");
+                    String image = c.getString("pic");
+
+                    Topic topic1 = new Topic(name, description, admin, id, image);
+
+                    topicList.add(topic1);
+
+                }
+            } catch (final JSONException e) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showMessage("Json parsing error: " + e.getMessage());
+                    }
+                });
+            }
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showMessage("Couldn't get json from server. Check LogCat for possible errors!");
+                }
+            });
+
+        }
+
+    }
+
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+
+        public DownloadImageTask(ImageView imageView) {
+            imageViewReference = new WeakReference<>(imageView);
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap bitmap) {
+
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            if (imageViewReference != null) {
+                ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    if (bitmap != null) {
+                        imageView.setImageBitmap(bitmap);
+                    } else {
+
+                    }
+                }
+            }
+        }
+    }
+
     private class MyTask extends AsyncTask<String,String,String> {
     @Override
     protected void onPreExecute() {
@@ -374,6 +477,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     protected void onProgressUpdate(String... values) {
     }
 }
+
     private class MyTask1 extends AsyncTask<String,String,String> {
         @Override
         protected void onPreExecute() {
@@ -472,117 +576,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         }
     }
 
-    private void showMessage(String s) {
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-    }
-
-    private void LoadFriend(String url, HttpHandler sh){
-        String jsonStr = sh.makeServiceCall(url);
-
-        if (jsonStr != null) {
-            try {
-                JSONObject jsonObj = new JSONObject(jsonStr);
-
-                JSONArray friend = jsonObj.getJSONArray("friend");
-
-                for (int i = 0; i < friend.length(); i++) {
-                    JSONObject c = friend.getJSONObject(i);
-                    friends.add(c.getString("name")+":" + c.getString("userid")+":"+c.getString("pic"));
-                }
-            } catch (final JSONException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showMessage("Json parsing error: " + e.getMessage());
-                    }
-                });
-            }
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showMessage("Couldn't get json from server. Check LogCat for possible errors!");
-                }
-            });
-        }
-
-    }
-
-    private void LoadGroup(String url, HttpHandler sh){
-        final String jsonStr = sh.makeServiceCall(url);
-        if (jsonStr != null) {
-            try {
-                JSONObject jsonObj = new JSONObject(jsonStr);
-
-                JSONArray group = jsonObj.getJSONArray("group");
-
-                for (int i = 0; i < group.length(); i++) {
-                    JSONObject c = group.getJSONObject(i);
-                    groups.add(c.getString("name")+":"+c.getString("id")+":"+c.getString("img"));
-                }
-
-            } catch (final JSONException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showMessage("Json parsing error: " + e.getMessage());
-                    }
-                });
-            }
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showMessage("Couldn't get json from server. Check LogCat for possible errors!");
-                }
-            });
-        }
-
-    }
-
-    private void LoadTopic(String url, HttpHandler sh){
-
-        final String jsonStr = sh.makeServiceCall(url);
-        if (jsonStr != null) {
-            try {
-                JSONObject jsonObj = new JSONObject(jsonStr);
-
-                JSONArray topic = jsonObj.getJSONArray("topic");
-
-                for (int i = 0; i < topic.length(); i++) {
-                    JSONObject c = topic.getJSONObject(i);
-
-                    String id = c.getString("id");
-                    String name = c.getString("name");
-                    String admin = c.getString("admin");
-                    String description = c.getString("description");
-                    String image = c.getString("pic");
-
-                    Topic topic1 = new Topic(name, description , admin , id, image);
-
-                    topicList.add(topic1);
-
-                }
-            } catch (final JSONException e) {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showMessage("Json parsing error: " + e.getMessage());
-                    }
-                });
-            }
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showMessage("Couldn't get json from server. Check LogCat for possible errors!");
-                }
-            });
-
-        }
-
-    }
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
@@ -596,11 +589,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         }
 
 
-    }
-
-    private int dpToPx(int dp) {
-        Resources r = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
 }

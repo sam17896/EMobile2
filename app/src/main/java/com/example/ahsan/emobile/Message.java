@@ -1,5 +1,7 @@
 package com.example.ahsan.emobile;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by AHSAN on 4/1/2017.
  */
@@ -10,6 +12,15 @@ public class Message {
     private String username;
     private String userpic;
     private String time;
+    private Bitmap bitmap;
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     public String getText() {
         return text;

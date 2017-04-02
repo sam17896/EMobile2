@@ -60,7 +60,4 @@ public class Users {
         this.usercover = usercover;
     }
 
-    public void makeUser(String userid){
-
-    }
 }

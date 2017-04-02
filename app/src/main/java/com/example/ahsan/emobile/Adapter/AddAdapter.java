@@ -7,43 +7,39 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ahsan.emobile.AppConfig;
-import com.example.ahsan.emobile.Fragments.AddFragment;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.ProfileView;
 import com.example.ahsan.emobile.R;
 import com.example.ahsan.emobile.SessionManager;
-import com.example.ahsan.emobile.Topic;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
 
-    private Activity activity;
-    private ArrayList<String> names;
+    private static LayoutInflater inflater = null;
     SessionManager session;
     ImageButton b;
-    private static LayoutInflater inflater = null;
     boolean s;
     CircleImageView iv;
+    LruCache<String, Bitmap> cache;
+    private Activity activity;
+    private ArrayList<String> names;
     public AddAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
         super(activity, resource,  names);
 
@@ -52,6 +48,9 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
         this.s = s;
         session = new SessionManager(getContext().getApplicationContext());
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final int maxMemory = (int) Runtime.getRuntime().maxMemory();
+        final int cachesize = maxMemory / 8;
+        cache = new LruCache<>(cachesize);
     }
 
     public int getCount() {
@@ -87,9 +86,12 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
             b.setOnClickListener(this);
             b.setTag(words[1]+":" + position);
         }
-
-        DownloadImageTask dn = new DownloadImageTask(iv);
-        dn.execute(AppConfig.IMAGESURL + words[2]);
+        if (cache.get(words[1]) != null) {
+            iv.setImageBitmap(cache.get(words[1]));
+        } else {
+            DownloadImageTask dn = new DownloadImageTask(iv, words[1]);
+            dn.execute(AppConfig.IMAGESURL + words[2]);
+        }
         return vi;
     }
 
@@ -127,8 +129,6 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            b.setImageResource(R.drawable.icon_added);
-            b.setEnabled(false);
             names.remove(position);
             notifyDataSetChanged();
 
@@ -150,9 +150,11 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
     }
     public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         private final WeakReference<CircleImageView> imageViewReference;
+        private String id;
 
-        public DownloadImageTask(CircleImageView imageView) {
+        public DownloadImageTask(CircleImageView imageView, String id) {
             imageViewReference = new WeakReference<>(imageView);
+            this.id = id;
         }
 
         protected Bitmap doInBackground(String... urls) {
@@ -179,6 +181,7 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
                 if (imageView != null) {
                     if (bitmap != null) {
                         imageView.setImageBitmap(bitmap);
+                        cache.put(id, bitmap);
                     } else {
                         //  Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
                         // imageView.setImageDrawable(placeholder);

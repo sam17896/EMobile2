@@ -1,15 +1,14 @@
 package com.example.ahsan.emobile;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -25,17 +24,18 @@ import org.json.JSONObject;
  * Created by AHSAN on 3/12/2017.
  */
 
-public class TopicView extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener  {
+public class TopicView extends AppCompatActivity {
 
-    private ViewPager viewPager;
-    private ActionBar actionBar;
-    SessionManager session;
-    private String[] tabadmin = { "Details", "Members", "Add", "Request", "Chat" };
     public  String[] tabsmember = {"Details" , "Members", "Chat"};
     public String[] tabsnmember = {"Details", "Members"};
+    SessionManager session;
     MenuItem item1;
     SwipeRefreshLayout srl;
     boolean refresh = false;
+    private ViewPager viewPager;
+    private ActionBar actionBar;
+    private String[] tabadmin = {"Details", "Members", "Add", "Request", "Chat"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,12 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
         actionBar = getSupportActionBar();
         session = new SessionManager(getApplicationContext());
 
-         update();
+        actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(session.getTopicName());
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
+
+        update();
 
 
     }
@@ -55,65 +60,12 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
         return true;
     }
 
+
     public void update(){
         MyTask task = new MyTask();
         task.execute();
     }
 
-
-    public void addTabs(int status){
-        switch (status){
-            case 0:
-                for (String tab_name : tabadmin) {
-                    actionBar.addTab(actionBar.newTab().setText(tab_name)
-                            .setTabListener(this));
-                }
-                break;
-            case 1:
-                for (String tab_name : tabsmember) {
-                    actionBar.addTab(actionBar.newTab().setText(tab_name)
-                            .setTabListener(this));
-                }
-                break;
-            case 2:
-                for (String tab_name : tabsnmember) {
-                    actionBar.addTab(actionBar.newTab().setText(tab_name)
-                            .setTabListener(this));
-                }
-                break;
-        }
-
-
-    }
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        actionBar.setSelectedNavigationItem(position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,7 +103,6 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
 
         int status;
         boolean admin;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -208,32 +159,25 @@ public class TopicView extends ActionBarActivity implements ActionBar.TabListene
                     break;
 
             }
-            actionBar.removeAllTabs();
             if(admin) {
                 TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-                addTabs(0);
                 viewPager.setAdapter(mAdapter);
             }
 
             if(status == 0 && !admin){
                 TopicMemberAdapter mAdapter = new TopicMemberAdapter(getSupportFragmentManager());
-                addTabs(1);
                 viewPager.setAdapter(mAdapter);
             }
 
             if(status > 0){
                 TopicNMemberAdapter mAdapter = new TopicNMemberAdapter(getSupportFragmentManager());
-                addTabs(2);
                 viewPager.setAdapter(mAdapter);
             }
 
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+
             actionBar.setHomeButtonEnabled(true);
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#009688")));
-
-            viewPager.setOnPageChangeListener(TopicView.this);
-
         }
     }
 

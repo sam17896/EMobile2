@@ -1,6 +1,5 @@
 package com.example.ahsan.emobile.Fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,16 +22,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MemberFragment extends Fragment {
 
+    public ListAdapter adapter;
     ListView lv;
     ArrayList<String> map;
     boolean s;
     SessionManager session;
     String jsonStr;
-    public ListAdapter adapter;
     SwipeRefreshLayout srl;
     boolean refresh = false;
     @Override
@@ -40,6 +38,7 @@ public class MemberFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_member, container, false);
+        setHasOptionsMenu(true);
 
 
         session = new SessionManager(getContext().getApplicationContext());

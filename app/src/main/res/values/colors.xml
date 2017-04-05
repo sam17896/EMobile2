@@ -3,10 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="bk">#009688</color>
-    <color name="toolbar">#478600</color>
-    <color name="textcolor">#ffffff</color>
-    <color name="hintcolor">#478600</color>
+    <color name="bk">#FFFFFF</color>
+    <color name="toolbar">#000000</color>
+    <color name="textcolor">#000000</color>
+    <color name="hintcolor">#d3d3d3</color>
     <color name="icon_color">#FFFFFF</color>
     <color name="bg_bubble_self">#E1E1E1</color>
+
+    <color name="ColorBlack">#000000</color>
+    <color name="ColorWhite">#FFFFFF</color>
 </resources>

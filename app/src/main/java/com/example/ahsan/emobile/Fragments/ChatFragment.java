@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -31,8 +29,8 @@ import java.util.ArrayList;
 
 public class ChatFragment extends Fragment {
 
+    String selfUserId;
     private String TAG = ChatFragment.class.getSimpleName();
-
     private String chatRoomId;
     private RecyclerView recyclerView;
     private ChatTopicAdapter mAdapter;
@@ -40,7 +38,6 @@ public class ChatFragment extends Fragment {
     private EditText inputMessage;
     private ImageButton btnSend;
     private SessionManager session;
-    String selfUserId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +49,7 @@ public class ChatFragment extends Fragment {
         btnSend = (ImageButton) rootView.findViewById(R.id.btn_send);
 
         session = new SessionManager(getContext().getApplicationContext());
+        setHasOptionsMenu(true);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 

@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
@@ -107,8 +106,9 @@ public class AddAdapter extends ArrayAdapter implements View.OnClickListener{
                 break;
 
             case R.id.name:
+                TextView t = (TextView) v;
                 session.setProfile(v.getTag().toString());
-                Toast.makeText(activity, v.getTag().toString() , Toast.LENGTH_SHORT).show();
+                session.setProfileName(t.getText().toString());
 
                 Intent i = new Intent(getContext(), ProfileView.class);
                 getContext().startActivity(i);

@@ -1,6 +1,5 @@
 package com.example.ahsan.emobile.Fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ahsan.emobile.Adapter.AddAdapter;
-import com.example.ahsan.emobile.Adapter.MemberAdapter;
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.R;
@@ -24,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class AddFragment extends Fragment {
 
@@ -48,6 +45,7 @@ public class AddFragment extends Fragment {
         map = new ArrayList<>();
 
         srl = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh);
+        setHasOptionsMenu(true);
 
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

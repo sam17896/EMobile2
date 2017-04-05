@@ -52,4 +52,29 @@ public class ProfilePagerAdapter extends FragmentPagerAdapter {
         return 9;
     }
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return "Personal Information";
+            case 1:
+                return "Friends";
+            case 2:
+                return "Groups";
+            case 3:
+                return "Social Links";
+            case 4:
+                return "Contact";
+            case 5:
+                return "Education";
+            case 6:
+                return "Work";
+            case 7:
+                return "Skills";
+            case 8:
+                return "Interests";
+        }
+        return null;
+    }
+
 }

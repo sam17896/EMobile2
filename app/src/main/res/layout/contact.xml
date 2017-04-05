@@ -9,14 +9,14 @@
         android:id="@+id/contact_type"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imageView7"
+        android:layout_alignBottom="@+id/imageView7"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/imageView7"
         android:layout_toRightOf="@+id/imageView7"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textcolor"
         android:textSize="18sp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_toEndOf="@+id/contact_type"
         android:layout_toRightOf="@+id/contact_type"
         android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textcolor"
         android:textSize="18sp" />
 
     <ImageView

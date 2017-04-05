@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +35,7 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-        ,View.OnClickListener, AdapterView.OnItemClickListener{
+public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static LayoutInflater inflater = null;
     ArrayList<Topic> topicList;
@@ -215,11 +213,13 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
             case R.id.profile:
 
                 session.setProfile(session.getUserID());
+                session.setProfileName(session.getUsername());
 
                 Intent i = new Intent(NavigationDrawer.this,ProfileView.class);
                 startActivity(i);
                 break;
             case R.id.chat:
+
                 Intent l = new Intent(NavigationDrawer.this,Thread.class);
                 startActivity(l);
 
@@ -228,6 +228,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
             case R.id.home:
                 Intent j = new Intent(NavigationDrawer.this,NavigationDrawer.class);
                 startActivity(j);
+                finish();
                 break;
 
             case R.id.request:
@@ -248,6 +249,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 session.setTopicDescription("");
                 session.setTopicName("");
                 session.setProfile("");
+                session.setProfileName("");
 
                 Intent k = new Intent(this, LoginActivity.class);
                 startActivity(k);
@@ -259,23 +261,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(view==null)
-            view = inflater.inflate(R.layout.listview, null);
-
-        session.setTopicID((String)view.findViewById(R.id.id).getTag());
-
-        Intent i = new Intent(this, TopicView.class);
-        startActivity(i);
-
     }
 
     private void showMessage(String s) {
@@ -510,6 +495,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
                         session.setProfile(""+id);
+                        session.setProfileName(item.getTitle().toString());
 
                         Intent i = new Intent(NavigationDrawer.this, ProfileView.class);
                         startActivity(i);
@@ -558,6 +544,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                         int id = item.getItemId();
 
                         session.setTopicID(""+id);
+                        session.setTopicName(item.getTitle().toString());
 
                         Intent i = new Intent(NavigationDrawer.this,TopicView.class);
                         startActivity(i);

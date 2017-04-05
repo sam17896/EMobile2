@@ -2,10 +2,12 @@ package com.example.ahsan.emobile;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,6 +31,7 @@ public class MessageActivity extends AppCompatActivity {
     private EditText inputMessage;
     private ImageButton btnSend;
     private SessionManager session;
+    private ActionBar actionBar;
 
     public MessageActivity() {
     }
@@ -38,10 +41,16 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        session = new SessionManager(getApplicationContext());
+        actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(session.getProfileName());
+
+
         inputMessage = (EditText) findViewById(R.id.message);
         btnSend = (ImageButton) findViewById(R.id.btn_send);
 
-        session = new SessionManager(getApplicationContext());
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -81,6 +90,16 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public class sendMessage extends AsyncTask<String,String,String>{
 

@@ -1,94 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bk"
     tools:context="com.example.ahsan.emobile.CreateTopic">
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:textColor="@color/textcolor"
-        android:textColorHighlight="@color/hintcolor"
-        android:textColorHint="@color/hintcolor"
-        android:textColorLink="@color/hintcolor"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="21dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:layout_below="@+id/name"
-        android:layout_marginTop="17dp"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="textMultiLine"
-        android:textColor="@color/textcolor"
-        android:textColorHint="@color/hintcolor"
-        android:textColorLink="@color/hintcolor"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="78dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/category"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/description"
-        android:layout_alignRight="@+id/description"
-        android:layout_below="@+id/description"
-        android:layout_marginTop="26dp"
-        android:ems="10"
-        android:hint="Category: Design, Programming"
-        android:inputType="textAutoComplete"
-        android:textColor="@color/textcolor"
-        android:textColorHint="@color/hintcolor"
-        android:textColorLink="@color/hintcolor"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="133dp" />
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textColor="@color/textcolor"
+                android:textColorHighlight="@color/hintcolor"
+                android:textColorHint="@color/hintcolor"
+                android:textColorLink="@color/hintcolor"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="130dp"
+                tools:layout_editor_absoluteY="21dp" />
 
-    <EditText
-        android:id="@+id/tags"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/category"
-        android:layout_alignRight="@+id/category"
-        android:layout_below="@+id/category"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="Tags: java, c++"
-        android:inputType="textAutoComplete"
-        android:textColor="@color/textcolor"
-        android:textColorHint="@color/hintcolor"
-        android:textColorLink="@color/hintcolor"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="195dp" />
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/name"
+                android:layout_alignStart="@+id/name"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:textColor="@color/textcolor"
+                android:textColorHint="@color/hintcolor"
+                android:textColorLink="@color/hintcolor"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="130dp"
+                tools:layout_editor_absoluteY="78dp" />
 
-    <Button
-        android:id="@+id/create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="Create Topic"
-        android:textColor="@color/bk"
-        tools:layout_editor_absoluteX="256dp"
-        tools:layout_editor_absoluteY="249dp"
-        android:layout_below="@+id/tags"
-        android:layout_alignRight="@+id/tags"
-        android:layout_alignEnd="@+id/tags"
-        android:layout_alignLeft="@+id/tags"
-        android:layout_alignStart="@+id/tags" />
+            <EditText
+                android:id="@+id/category"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/description"
+                android:layout_alignRight="@+id/description"
+                android:layout_below="@+id/description"
+                android:layout_marginTop="26dp"
+                android:ems="10"
+                android:hint="Category: Design, Programming"
+                android:inputType="textAutoComplete"
+                android:textColor="@color/textcolor"
+                android:textColorHint="@color/hintcolor"
+                android:textColorLink="@color/hintcolor"
+                tools:layout_editor_absoluteX="129dp"
+                tools:layout_editor_absoluteY="133dp" />
+
+            <EditText
+                android:id="@+id/tags"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/category"
+                android:layout_alignRight="@+id/category"
+                android:layout_below="@+id/category"
+                android:layout_marginTop="14dp"
+                android:ems="10"
+                android:hint="Tags: java, c++"
+                android:inputType="textAutoComplete"
+                android:textColor="@color/textcolor"
+                android:textColorHint="@color/hintcolor"
+                android:textColorLink="@color/hintcolor"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="195dp" />
+
+            <Button
+                android:id="@+id/create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/tags"
+                android:layout_alignLeft="@+id/tags"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/tags"
+                android:layout_alignStart="@+id/tags"
+                android:layout_below="@+id/tags"
+                android:layout_marginTop="20dp"
+                android:background="@color/ColorBlack"
+                android:text="@string/create_topic"
+                android:textColor="@color/ColorWhite" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
 </RelativeLayout>

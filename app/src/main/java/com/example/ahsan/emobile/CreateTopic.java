@@ -1,13 +1,11 @@
 package com.example.ahsan.emobile;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,9 +25,10 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_topic);
 
-        ActionBar ab = getSupportActionBar();
-        setTitle("Create New Topic");
-      //  ab.setBackgroundDrawable();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Create New Topic");
 
 
         b = (Button) findViewById(R.id.create);
@@ -57,8 +56,16 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
             break;
 
         }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public class myTask extends AsyncTask<String,String,String>{

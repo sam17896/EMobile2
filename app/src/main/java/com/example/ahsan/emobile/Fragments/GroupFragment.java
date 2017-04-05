@@ -1,6 +1,5 @@
 package com.example.ahsan.emobile.Fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.ahsan.emobile.Adapter.AddAdapter;
 import com.example.ahsan.emobile.Adapter.GroupAdapter;
-import com.example.ahsan.emobile.Adapter.MemberAdapter;
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.R;
@@ -25,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class GroupFragment extends Fragment {
 
@@ -42,6 +37,7 @@ public class GroupFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
+        setHasOptionsMenu(true);
 
         session = new SessionManager(getContext().getApplicationContext());
         lv = (ListView) rootView.findViewById(R.id.groups);

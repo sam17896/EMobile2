@@ -29,7 +29,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
-//    private SQLiteHandler db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

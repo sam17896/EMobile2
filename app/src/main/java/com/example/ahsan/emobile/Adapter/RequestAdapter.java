@@ -118,6 +118,7 @@ public class RequestAdapter extends ArrayAdapter implements View.OnClickListener
 
             case R.id.name:
                 session.setProfile(v.getTag().toString());
+                session.setProfileName(((TextView) v).getText().toString());
 
                 Intent i = new Intent(getContext(), ProfileView.class);
                 getContext().startActivity(i);

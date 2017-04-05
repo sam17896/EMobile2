@@ -17,7 +17,6 @@ import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.R;
 import com.example.ahsan.emobile.SessionManager;
-import com.example.ahsan.emobile.Topic;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +45,7 @@ public class DetailFragment extends Fragment {
         icon = (ImageView) vi.findViewById(R.id.topic_icon);
         pd = new ProgressDialog(getContext());
 
+        setHasOptionsMenu(true);
 
         myTask myTask = new myTask();
         myTask.execute("");

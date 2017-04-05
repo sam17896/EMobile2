@@ -1,6 +1,5 @@
 package com.example.ahsan.emobile.Fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class RequestFragment extends Fragment {
 
@@ -40,6 +38,7 @@ public class RequestFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_request, container, false);
 
+        setHasOptionsMenu(true);
 
         session = new SessionManager(getContext().getApplicationContext());
         lv = (ListView) rootView.findViewById(R.id.request);

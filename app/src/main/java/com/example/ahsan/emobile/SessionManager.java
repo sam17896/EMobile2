@@ -6,15 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 public class SessionManager {
-    private static String TAG = SessionManager.class.getSimpleName();
-
-    SharedPreferences pref;
-
-    Editor editor;
-    Context _context;
-
-    int PRIVATE_MODE = 0;
-
     // Shared preferences file name
     private static final String PREF_NAME = "E-Discussion";
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
@@ -26,6 +17,12 @@ public class SessionManager {
     private static final String KEY_TOPIC_TITLE = "topic_titile";
     private static final String KEY_PROFILE = "profile";
     private static final String KEY_PIC = "pic";
+    private static final String KEY_NAME = "name";
+    private static String TAG = SessionManager.class.getSimpleName();
+    SharedPreferences pref;
+    Editor editor;
+    Context _context;
+    int PRIVATE_MODE = 0;
 
 
 
@@ -49,42 +46,30 @@ public class SessionManager {
         Log.d(TAG, "User ID set");
     }
 
-    public void setTopicName(String name){
-        editor.putString(KEY_TOPIC_TITLE,name);
-        editor.commit();
-
-        Log.d(TAG, "Topic name set");
+    public String getProfileName() {
+        return pref.getString(KEY_NAME, "Profile");
     }
 
-
-    public void setTopicDescription(String desc){
-        editor.putString(KEY_TOPIC_DESCRIPTION,desc);
+    public void setProfileName(String name) {
+        editor.putString(KEY_NAME, name);
         editor.commit();
-
-        Log.d(TAG, "Topic Description set");
-    }
-
-    public void setProfile(String pr){
-        editor.putString(KEY_PROFILE, pr);
-        editor.commit();
-
-        Log.d(TAG, "Profile id set");
 
     }
 
-    public void setTopicAdmin(String admin){
-        editor.putString(KEY_TOPIC_ADMIN,admin);
-        editor.commit();
-
-        Log.d(TAG, "Topic admin set");
+    public String getPpic() {
+        return pref.getString(KEY_PIC, "-1");
     }
 
-    public void setUsername(String username){
-        editor.putString(KEY_USERNAME,username);
+    public void setPpic(String pic) {
+        editor.putString(KEY_PIC, pic);
         editor.commit();
 
-        Log.d(TAG, "User ID set");
+        Log.d(TAG, "Picture is set");
 
+    }
+
+    public String getTopicID() {
+        return pref.getString(KEY_TOPIC_ID, "-1");
     }
 
     public void setTopicID(String topicID){
@@ -94,38 +79,73 @@ public class SessionManager {
         Log.d(TAG, "Topic ID is set");
 
     }
-    public void setPpic(String pic){
-        editor.putString(KEY_PIC,pic);
+
+    public String getProfile() {
+        return pref.getString(KEY_PROFILE, "-1");
+    }
+
+    public void setProfile(String pr) {
+        editor.putString(KEY_PROFILE, pr);
         editor.commit();
 
-        Log.d(TAG, "Picture is set");
+        Log.d(TAG, "Profile id set");
 
     }
 
-    public String getPpic(){
-        return pref.getString(KEY_PIC,"-1");
-    }
-
-    public String getTopicID(){
-        return pref.getString(KEY_TOPIC_ID,"-1");
-    }
-    public String getProfile() { return pref.getString(KEY_PROFILE,"-1");}
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
+
     public String getUserID(){
         return pref.getString(KEY_USERID,"-1");
     }
+
     public String getTopicAdmin(){
         return pref.getString(KEY_TOPIC_ADMIN, "-1");
     }
+
+    public void setTopicAdmin(String admin) {
+        editor.putString(KEY_TOPIC_ADMIN, admin);
+        editor.commit();
+
+        Log.d(TAG, "Topic admin set");
+    }
+
     public String getTopicTitle(){
         return pref.getString(KEY_TOPIC_TITLE,"-1");
     }
+
     public String getTopicDescription(){
         return pref.getString(KEY_TOPIC_DESCRIPTION,"-1");
     }
+
+    public void setTopicDescription(String desc) {
+        editor.putString(KEY_TOPIC_DESCRIPTION, desc);
+        editor.commit();
+
+        Log.d(TAG, "Topic Description set");
+    }
+
     public String getUsername(){
         return pref.getString(KEY_USERNAME,"Ediscussion");
+    }
+
+    public void setUsername(String username) {
+        editor.putString(KEY_USERNAME, username);
+        editor.commit();
+
+        Log.d(TAG, "User ID set");
+
+    }
+
+    public String getTopicName() {
+        return pref.getString(KEY_TOPIC_TITLE, "Topic");
+    }
+
+    public void setTopicName(String name) {
+        editor.putString(KEY_TOPIC_TITLE, name);
+        editor.commit();
+
+        Log.d(TAG, "Topic name set");
     }
 }

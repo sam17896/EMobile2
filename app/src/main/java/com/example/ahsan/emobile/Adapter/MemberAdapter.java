@@ -107,6 +107,7 @@ public class MemberAdapter extends ArrayAdapter implements View.OnClickListener{
                 break;
             case R.id.name:
                 session.setProfile(v.getTag().toString());
+                session.setProfileName(((TextView) v).getText().toString());
 
                 Intent i = new Intent(getContext(), ProfileView.class);
                 getContext().startActivity(i);

@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.ProfileView;
@@ -90,8 +89,8 @@ public class FriendAdapter extends ArrayAdapter implements View.OnClickListener{
             case R.id.friend:
 
                 session.setProfile(v.getTag().toString());
-                Toast.makeText(activity, v.getTag().toString() , Toast.LENGTH_SHORT).show();
-                
+                session.setProfileName(((TextView) v).getText().toString());
+
                 Intent i = new Intent(getContext(), ProfileView.class);
                 getContext().startActivity(i);
                 break;

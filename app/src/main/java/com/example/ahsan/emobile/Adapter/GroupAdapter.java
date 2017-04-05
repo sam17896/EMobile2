@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.R;
+import com.example.ahsan.emobile.SessionManager;
 import com.example.ahsan.emobile.TopicView;
 
 import java.io.InputStream;
@@ -31,12 +32,14 @@ public class GroupAdapter extends ArrayAdapter implements View.OnClickListener{
     LruCache<String, Bitmap> cache;
     private Activity activity;
     private ArrayList<String> names;
+    private SessionManager session;
     public GroupAdapter (Activity activity, int resource, ArrayList<String> names, boolean s) {
         super(activity, resource,  names);
 
         this.activity = activity;
         this.names = names;
         this.s = s;
+        session = new SessionManager(getContext());
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int maxmemory = (int) Runtime.getRuntime().maxMemory();
@@ -85,6 +88,8 @@ public class GroupAdapter extends ArrayAdapter implements View.OnClickListener{
         switch (id){
             case R.id.group:
 
+                session.setTopicID(v.getTag().toString());
+                session.setTopicName(((TextView) v).getText().toString());
                 Intent i = new Intent(getContext(), TopicView.class);
                 getContext().startActivity(i);
 

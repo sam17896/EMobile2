@@ -10,14 +10,12 @@
         android:id="@+id/name"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginTop="22dp"
-        android:layout_toLeftOf="@+id/remove"
-        android:layout_toStartOf="@+id/remove"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/imageView4"
+        android:layout_toRightOf="@+id/imageView4"
         android:gravity="center_vertical"
-        android:text="TextView"
         android:textColor="@color/textcolor"
         android:textSize="18sp" />
 
@@ -27,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/name"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/icon_reject" />
 
 
@@ -40,9 +38,10 @@
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/name"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
         app:civ_border_color="@color/bk"
         app:civ_border_width="2dp" />
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.example.ahsan.emobile.Fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.ahsan.emobile.Adapter.AddAdapter;
 import com.example.ahsan.emobile.Adapter.FriendAdapter;
-import com.example.ahsan.emobile.Adapter.MemberAdapter;
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.R;
@@ -25,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class FriendFragment extends Fragment {
 
@@ -41,6 +37,7 @@ public class FriendFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_friend, container, false);
+        setHasOptionsMenu(true);
 
 
         session = new SessionManager(getContext().getApplicationContext());

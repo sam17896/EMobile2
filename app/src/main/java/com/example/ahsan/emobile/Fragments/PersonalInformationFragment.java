@@ -5,19 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ahsan.emobile.Adapter.MemberAdapter;
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
 import com.example.ahsan.emobile.R;
@@ -28,9 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class PersonalInformationFragment extends Fragment {
 
@@ -57,6 +50,8 @@ public class PersonalInformationFragment extends Fragment {
         dob = (TextView) rootView.findViewById(R.id.user_odob);
         pd = new ProgressDialog(getContext());
         imageView = (ImageView) rootView.findViewById(R.id.imageView);
+
+        setHasOptionsMenu(true);
 
         MyTask task = new MyTask();
         task.execute();

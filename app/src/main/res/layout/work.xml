@@ -9,7 +9,7 @@
         android:id="@+id/work_i"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/imageView12"
+        android:layout_alignBottom="@+id/imageView12"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"

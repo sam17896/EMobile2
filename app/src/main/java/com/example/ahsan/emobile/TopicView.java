@@ -57,6 +57,7 @@ public class TopicView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu m) {
         getMenuInflater().inflate(R.menu.topic_menu, m);
         item1 = m.findItem(R.id.action);
+        //   update();
         return true;
     }
 

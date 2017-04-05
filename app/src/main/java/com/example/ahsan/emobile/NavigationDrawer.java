@@ -72,6 +72,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                             view = inflater.inflate(R.layout.listview, null);
 
                         session.setTopicID((String)view.findViewById(R.id.id).getTag());
+                        TextView tv = (TextView) view.findViewById(R.id.title);
+                        session.setTopicName(tv.getText().toString());
 
                         Intent i = new Intent(getApplicationContext(), TopicView.class);
                         startActivity(i);

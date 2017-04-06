@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,9 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by AHSAN on 3/12/2017.
- */
 
 public class TopicView extends AppCompatActivity {
 
@@ -44,28 +42,19 @@ public class TopicView extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getSupportActionBar();
         session = new SessionManager(getApplicationContext());
-
-        actionBar.setHomeAsUpIndicator(R.drawable.icon_back);
-        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(session.getTopicName());
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
 
-        update();
-
-
     }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu m) {
         getMenuInflater().inflate(R.menu.topic_menu, m);
-        item1 = m.findItem(R.id.action);
-        //   update();
         return true;
     }
 
 
-    public void update(){
-        MyTask task = new MyTask();
-        task.execute();
-    }
+
 
 
     @Override
@@ -79,28 +68,10 @@ public class TopicView extends AppCompatActivity {
         }
 
 
-        switch(name){
-            case "Leave":
-                left l = new left();
-                l.execute();
-                break;
-            case "Join":
-                request r = new request();
-                r.execute();
-                break;
-
-            case "Cancel":
-                cancel c = new cancel();
-                c.execute();
-
-                break;
-
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
-    public class MyTask extends AsyncTask<String,String,String> {
+    public class MyTask1 extends AsyncTask<String, String, String> {
 
         int status;
         boolean admin;
@@ -127,6 +98,8 @@ public class TopicView extends AppCompatActivity {
                         admin = js.getBoolean("admin");
                     }
 
+                    Log.d("Group Status", "" + status + " " + admin);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -143,22 +116,6 @@ public class TopicView extends AppCompatActivity {
             if(refresh){
                 refresh = false;
                 srl.setRefreshing(false);
-            }
-
-            switch(status){
-                case 0:
-                    item1.setTitle("Leave");
-                    item1.setIcon(R.drawable.icon_logout);
-                    break;
-                case 2:
-                    item1.setTitle("Join");
-                    item1.setIcon(R.drawable.icon_create);
-                    break;
-                case 1:
-                    item1.setTitle("Cancel");
-                    item1.setIcon(R.drawable.icon_reject);
-                    break;
-
             }
             if(admin) {
                 TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
@@ -182,64 +139,4 @@ public class TopicView extends AppCompatActivity {
         }
     }
 
-    public class cancel extends AsyncTask<String,String,String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String url = AppConfig.URL + "cancel.php?id=" + session.getTopicID() + "&uid=" + session.getUserID();
-            HttpHandler sh = new HttpHandler();
-            sh.makeServiceCall(url);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            update();
-        }
-    }
-    public class left extends AsyncTask<String,String,String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String url = AppConfig.URL + "left.php?id=" + session.getTopicID() + "&uid=" + session.getUserID();
-            HttpHandler sh = new HttpHandler();
-            sh.makeServiceCall(url);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            update();
-        }
-    }
-    public class request extends AsyncTask<String,String,String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String url = AppConfig.URL + "request.php?id=" + session.getTopicID() + "&uid=" + session.getUserID();
-            HttpHandler sh = new HttpHandler();
-            sh.makeServiceCall(url);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            update();
-        }
-    }
 }

@@ -7,8 +7,9 @@
     tools:context="com.example.ahsan.emobile.CreateTopic">
 
     <ScrollView
+        android:id="@+id/scollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical">
 
         <RelativeLayout
@@ -17,11 +18,11 @@
 
             <EditText
                 android:id="@+id/name"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="50dp"
                 android:ems="10"
                 android:hint="Name"
                 android:inputType="textPersonName"
@@ -35,7 +36,7 @@
 
             <EditText
                 android:id="@+id/description"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/name"
                 android:layout_alignStart="@+id/name"
@@ -53,7 +54,7 @@
 
             <EditText
                 android:id="@+id/category"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/description"
                 android:layout_alignRight="@+id/description"
@@ -70,7 +71,7 @@
 
             <EditText
                 android:id="@+id/tags"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/category"
                 android:layout_alignRight="@+id/category"
@@ -85,23 +86,20 @@
                 tools:layout_editor_absoluteX="132dp"
                 tools:layout_editor_absoluteY="195dp" />
 
-            <Button
-                android:id="@+id/create"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/tags"
-                android:layout_alignLeft="@+id/tags"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/tags"
-                android:layout_alignStart="@+id/tags"
-                android:layout_below="@+id/tags"
-                android:layout_marginTop="20dp"
-                android:background="@color/ColorBlack"
-                android:text="@string/create_topic"
-                android:textColor="@color/ColorWhite" />
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scollview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/ColorBlack"
+        android:text="@string/create_topic"
+        android:textColor="@color/ColorWhite" />
 
 </RelativeLayout>

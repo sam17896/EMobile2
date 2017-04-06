@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,12 +25,13 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements View.OnClickListener {
 
     SessionManager session;
     TextView title,description,admin;
     ImageView icon;
     String name,ad,desc,pic;
+    Button btn;
     ProgressDialog pd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,22 +45,55 @@ public class DetailFragment extends Fragment {
         description = (TextView) vi.findViewById(R.id.description);
         admin = (TextView) vi.findViewById(R.id.adminName);
         icon = (ImageView) vi.findViewById(R.id.topic_icon);
-        pd = new ProgressDialog(getContext());
+        btn = (Button) vi.findViewById(R.id.btn);
+
+        btn.setOnClickListener(this);
 
         setHasOptionsMenu(true);
 
         myTask myTask = new myTask();
         myTask.execute("");
 
+        update();
+
         return vi;
     }
-public class myTask extends AsyncTask<String,String,String>{
+
+    @Override
+    public void onClick(View v) {
+        Button b = (Button) v;
+        String n = b.getText().toString();
+
+        switch (n) {
+            case "Leave":
+                left l = new left();
+                l.execute();
+                break;
+            case "Join":
+                request r = new request();
+                r.execute();
+                break;
+
+            case "Cancel":
+                cancel c = new cancel();
+                c.execute();
+
+                break;
+
+        }
+
+    }
+
+    public void update() {
+        load task = new load();
+        task.execute();
+    }
+
+
+    public class myTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pd.setMessage("Loading.......");
-        pd.setCancelable(false);
-        pd.show();
     }
 
     @Override
@@ -118,12 +153,136 @@ public class myTask extends AsyncTask<String,String,String>{
 
         protected void onPostExecute(Bitmap result) {
 
-            if(pd.isShowing()){
-                pd.hide();
-            }
-
-
             icon.setImageBitmap(result);
         }
     }
+
+    public class load extends AsyncTask<String, String, String> {
+
+        int status;
+        boolean admin;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String URL = AppConfig.URL + "groupstatus.php?id=" + session.getUserID() + "&tid=" + session.getTopicID();
+            HttpHandler sh = new HttpHandler();
+            String response = sh.makeServiceCall(URL);
+
+            if (response != null) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    JSONArray array = jsonObject.getJSONArray("status");
+
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject js = array.getJSONObject(i);
+                        status = js.getInt("status");
+                        admin = js.getBoolean("admin");
+                    }
+
+                    Log.d("Group Status", "" + status + " " + admin);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.d("Group Status", "" + status);
+            switch (status) {
+                case 0:
+                    btn.setText("Leave");
+                    btn.setVisibility(View.VISIBLE);
+                    Log.d("Group Status", "LEAVE");
+                    break;
+                case 2:
+                    btn.setText("Join");
+                    btn.setVisibility(View.VISIBLE);
+                    Log.d("Group Status", "ADD");
+                    break;
+                case 1:
+                    btn.setText("Cancel");
+                    btn.setVisibility(View.VISIBLE);
+                    Log.d("Group Status", "CANCEL");
+                    break;
+
+            }
+        }
+    }
+
+    public class cancel extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String url = AppConfig.URL + "cancel.php?id=" + session.getTopicID() + "&uid=" + session.getUserID();
+            HttpHandler sh = new HttpHandler();
+            sh.makeServiceCall(url);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            update();
+        }
+    }
+
+    public class left extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String url = AppConfig.URL + "left.php?id=" + session.getTopicID() + "&uid=" + session.getUserID();
+            HttpHandler sh = new HttpHandler();
+            sh.makeServiceCall(url);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            update();
+        }
+    }
+
+    public class request extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String url = AppConfig.URL + "request.php?id=" + session.getTopicID() + "&uid=" + session.getUserID();
+            HttpHandler sh = new HttpHandler();
+            sh.makeServiceCall(url);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            update();
+        }
+    }
+
 }

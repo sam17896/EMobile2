@@ -130,12 +130,13 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 if (child_row.isUser()) {
-                    session.setProfile(v.getTag().toString());
+                    session.setProfile(child_row.getId().toString());
                     session.setProfileName(((TextView) v).getText().toString());
                     Intent i = new Intent(context, ProfileView.class);
                     context.startActivity(i);
                 } else {
                     session.setTopicID(child_row.getId());
+                    session.setTopicName(((TextView) v).getText().toString());
                     Intent i = new Intent(context, TopicView.class);
                     context.startActivity(i);
                 }

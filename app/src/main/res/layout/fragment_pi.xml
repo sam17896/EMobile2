@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bk">
+        android:background="@color/bk"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
     <TextView
         android:id="@+id/user_ofn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textColor="@color/textcolor"
-        android:textSize="22sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"/>
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/user_oln"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:textColor="@color/textcolor"
-        android:textSize="22sp"
-        android:layout_below="@+id/user_ofn"
-        android:layout_alignLeft="@+id/user_ofn"
-        android:layout_alignStart="@+id/user_ofn" />
+        android:textSize="22sp" />
 
-    <TextView
+        </LinearLayout>
+
+        <TextView
         android:id="@+id/user_og"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_oln"
-        android:layout_alignStart="@+id/user_oln"
-        android:layout_below="@+id/user_oln"
+            android:layout_below="@+id/linear"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/textcolor"
         android:textSize="22sp" />
@@ -69,11 +79,49 @@
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="5dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/bk"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        app:civ_border_color="@color/bk"
+        app:civ_border_width="2dp" />
 
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/addbtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Add"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/removebtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Remove"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

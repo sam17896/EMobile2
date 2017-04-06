@@ -45,7 +45,15 @@ public class TopicView extends AppCompatActivity {
         actionBar.setTitle(session.getTopicName());
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#000000")));
 
+        update();
+
     }
+
+    private void update() {
+        MyTask1 task = new MyTask1();
+        task.execute();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu m) {

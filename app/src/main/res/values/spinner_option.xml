@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="linktype">
+        <item>Facebook</item>
+        <item>Twitter</item>
+        <item>Instagram</item>
+        <item>Google+</item>
+
+    </string-array>
+
+    <string-array name="contacttype">
+        <item>Home</item>
+        <item>Work</item>
+        <item>Mobile</item>
+
+    </string-array>
+</resources>

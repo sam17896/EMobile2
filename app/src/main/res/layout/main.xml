@@ -4,76 +4,24 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/ID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/lg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ID"
-        android:text="LOGIN" />
-
-    <Button
-        android:id="@+id/rgtr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/lg"
-        android:layout_toEndOf="@+id/lg"
-        android:layout_toRightOf="@+id/lg"
-        android:text="REGISTRATION" />
-
-    <Button
-        android:id="@+id/hm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/rgtr"
-        android:layout_toEndOf="@+id/rgtr"
-        android:layout_toRightOf="@+id/rgtr"
-        android:text="HOME" />
-
-    <Button
-        android:id="@+id/tp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hm"
-        android:layout_alignBottom="@+id/hm"
-        android:layout_toEndOf="@+id/hm"
-        android:layout_toRightOf="@+id/hm"
-        android:text="TOPIC" />
-
-    <Button
-        android:id="@+id/pr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lg"
-        android:text="PROFILE" />
-
-    <EditText
-        android:id="@+id/ip"
+        android:id="@+id/Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/pr"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="58dp"
-        android:ems="10"
-        android:hint="IP"
-        android:inputType="textPersonName" />
-
-    <Button
-        android:id="@+id/setip"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="SetIp" />
+        android:gravity="center"
+        android:text="E-Mobile"
+        android:textAllCaps="true"
+        android:textColor="@color/ColorBlack"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Title"
+        android:gravity="center"
+        android:text="A Discussion Platform For Students"
+        android:textColor="@color/ColorBlack"
+        android:textSize="18sp" />
 </RelativeLayout>

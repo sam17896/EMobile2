@@ -188,6 +188,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
             case R.id.action_profile:
                 session.setProfile(session.getUserID());
+                session.setProfileName(session.getUsername());
 
                 Intent k = new Intent(this, ProfileView.class);
                 startActivity(k);

@@ -51,6 +51,7 @@ public class ProfileView extends AppCompatActivity {
         String name = item.getTitle().toString();
 
         if (id == R.id.action_edit) {
+            session.setProfile(session.getUserID());
             Intent i = new Intent(ProfileView.this, EditActivity.class);
             startActivity(i);
             return true;

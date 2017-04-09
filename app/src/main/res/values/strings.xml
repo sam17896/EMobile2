@@ -39,4 +39,9 @@
     <string name="e_discussion">E-Discussion</string>
     <string name="string_search">Search</string>
     <string name="search_hint">Search any user or topic</string>
+    <string name="interest">Interest</string>
+    <string name="skill">Skills</string>
+    <string name="education">Education</string>
+    <string name="work">Work</string>
+    <string name="contact">Contact</string>
 </resources>

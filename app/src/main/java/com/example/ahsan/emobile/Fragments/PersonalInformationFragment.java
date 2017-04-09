@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ahsan.emobile.AppConfig;
 import com.example.ahsan.emobile.HttpHandler;
@@ -72,8 +73,11 @@ public class PersonalInformationFragment extends Fragment implements View.OnClic
     }
 
     private void update() {
-        loadstatus tastk = new loadstatus();
-        tastk.execute();
+        if (!session.getProfile().equals(session.getUserID())) {
+            loadstatus tastk = new loadstatus();
+            tastk.execute();
+            Toast.makeText(getActivity(), "Method Called", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="vertical">
-<RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/bk"
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="true"
     android:scrollbars="vertical">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bk"
+        android:isScrollContainer="true"
+        android:scrollbars="vertical">
+
+        <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +24,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="11dp"
         android:text="@string/personal_information"
-        android:textColor="#FFFFFF"
+            android:textColor="@color/ColorBlack"
         android:textSize="20sp" />
     <View
         android:id="@+id/s1"
@@ -33,24 +37,24 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_below="@+id/s1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/s1"
+            android:layout_marginTop="10dp"
             android:paddingBottom="20dp"
-            android:layout_marginTop="11dp" />
+            android:scaleType="centerCrop" />
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add_image"
-            android:layout_marginRight="21dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginBottom="11dp"
             android:layout_alignBottom="@+id/imageView"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginBottom="11dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            android:src="@drawable/add_image" />
 
     <TextView
         android:id="@+id/user_fn"
@@ -61,158 +65,548 @@
         android:layout_below="@+id/imageView"
         android:layout_marginTop="28dp"
         android:text="@string/first_name"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp" />
+        android:textColor="@color/textcolor"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/user_ln"
         android:layout_width="120dp"
         android:layout_height="30dp"
-        android:text="@string/last_name"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
         android:layout_alignBottom="@+id/en_ln"
         android:layout_alignLeft="@+id/user_g"
-        android:layout_alignStart="@+id/user_g" />
+        android:layout_alignStart="@+id/user_g"
+        android:text="@string/last_name"
+        android:textColor="@color/textcolor"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/user_g"
         android:layout_width="120dp"
         android:layout_height="30dp"
-        android:text="@string/gender"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
         android:layout_alignBottom="@+id/en_c"
         android:layout_alignLeft="@+id/user_dob"
-        android:layout_alignStart="@+id/user_dob" />
+        android:layout_alignStart="@+id/user_dob"
+        android:text="@string/gender"
+        android:textColor="@color/textcolor"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/user_c"
         android:layout_width="120dp"
         android:layout_height="30dp"
-        android:text="@string/country"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
         android:layout_alignBottom="@+id/en_g"
         android:layout_alignLeft="@+id/user_dob"
-        android:layout_alignStart="@+id/user_dob" />
+        android:layout_alignStart="@+id/user_dob"
+        android:text="@string/country"
+        android:textColor="@color/textcolor"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/user_dob"
         android:layout_width="120dp"
         android:layout_height="30dp"
-        android:text="@string/date_of_birth"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
         android:layout_alignBottom="@+id/en_dob"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        android:text="@string/date_of_birth"
+        android:textColor="@color/textcolor"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/ed_fn"
         android:layout_width="210dp"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/user_fn"
-        android:layout_alignEnd="@+id/imageButton"
-        android:layout_alignRight="@+id/imageButton"
+        android:layout_toEndOf="@+id/user_fn"
+        android:layout_toRightOf="@+id/user_fn"
+        android:background="@drawable/border"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp" />
+        android:textColor="@color/textcolor"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/en_ln"
         android:layout_width="210dp"
         android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:layout_below="@+id/ed_fn"
         android:layout_alignLeft="@+id/ed_fn"
         android:layout_alignStart="@+id/ed_fn"
-        android:layout_marginTop="11dp" />
+        android:layout_below="@+id/ed_fn"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/user_ln"
+        android:layout_toRightOf="@+id/user_ln"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/textcolor"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/en_g"
         android:layout_width="210dp"
         android:layout_height="45dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
         android:layout_alignLeft="@+id/en_ln"
         android:layout_alignStart="@+id/en_ln"
         android:layout_below="@+id/en_ln"
-        android:layout_marginTop="11dp"/>
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/user_g"
+        android:layout_toRightOf="@+id/user_g"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/textcolor"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/en_c"
         android:layout_width="210dp"
         android:layout_height="45dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
         android:layout_alignLeft="@+id/en_g"
         android:layout_alignStart="@+id/en_g"
         android:layout_below="@+id/en_g"
-        android:layout_marginTop="11dp" />
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/user_c"
+        android:layout_toRightOf="@+id/user_c"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/textcolor"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/en_dob"
         android:layout_width="210dp"
         android:layout_height="45dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
         android:layout_alignLeft="@+id/en_ln"
         android:layout_alignStart="@+id/en_ln"
         android:layout_below="@+id/en_c"
-        android:layout_marginTop="11dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/user_dob"
+        android:layout_toRightOf="@+id/user_dob"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@color/textcolor"
          />
-
-    <View
-        android:id="@+id/s2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/user_dob"
-        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/social_links"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
-        android:layout_below="@+id/s2"
-        android:layout_marginTop="11dp"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"/>
-    <View
-        android:id="@+id/s3"
+        android:layout_below="@+id/save"
+        android:layout_marginTop="15dp"
+        android:text="@string/social_links"
+        android:textColor="@color/textcolor"
+        android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/lls"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+            android:layout_height="wrap_content"
         android:layout_below="@id/textView3"
-        android:background="@android:color/darker_gray"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/ltype"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:textColor="@color/hintcolor" />
 
-        <ExpandableListView
+            <EditText
+                android:id="@+id/ll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="Link"
+                android:textColor="@color/hintcolor" />
+
+            <Button
+                android:id="@+id/ls"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Save"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/l"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lls"
+            android:layout_marginTop="10dp">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/l"
+            android:layout_marginTop="15dp"
+            android:text="@string/contact"
+            android:textColor="@color/textcolor"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/llc"
+        android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView8"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <Spinner
+                android:id="@+id/ctype"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:textColor="@color/hintcolor" />
+
+            <EditText
+                android:id="@+id/cc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="Contact"
+                android:textColor="@color/hintcolor" />
+
+            <Button
+                android:id="@+id/cs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Save"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llc"
+            android:layout_marginTop="10dp">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/c"
+            android:layout_marginTop="15dp"
+            android:text="@string/interest"
+            android:textColor="@color/textcolor"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/lli"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView4"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
 
+            <EditText
+                android:id="@+id/li"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/border"
+                android:hint="Interest"
+                android:textColor="@color/hintcolor" />
 
-        </ExpandableListView>
+            <Button
+                android:id="@+id/is"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Save"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/i"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lli"
+            android:layout_marginTop="10dp">
+
+        </ListView>
 
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/i"
+            android:layout_marginTop="15dp"
+            android:text="@string/skill"
+            android:textColor="@color/textcolor"
+            android:textSize="18sp" />
 
+        <LinearLayout
+            android:id="@+id/llsk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView5"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+
+            <EditText
+                android:id="@+id/sl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/border"
+                android:hint="Skill"
+                android:textColor="@color/hintcolor" />
+
+            <Button
+                android:id="@+id/ss"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Save"
+
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llsk"
+            android:layout_marginTop="10dp">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/s"
+            android:layout_marginTop="15dp"
+            android:text="@string/education"
+            android:textColor="@color/textcolor"
+            android:textSize="18sp" />
+
+
+        <LinearLayout
+            android:id="@+id/lle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView6"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <EditText
+                android:id="@+id/einst"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="Institure"
+                android:textColor="@color/hintcolor" />
+
+            <EditText
+                android:id="@+id/ef"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="From (YEAR)"
+                android:textColor="@color/hintcolor" />
+
+            <EditText
+                android:id="@+id/et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="To (YEAR)"
+                android:textColor="@color/hintcolor" />
+
+
+            <Button
+                android:id="@+id/es"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Save"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lle"
+            android:layout_marginTop="10dp">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/e"
+            android:layout_marginTop="15dp"
+            android:text="@string/work"
+            android:textColor="@color/textcolor"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/llw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView7"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <EditText
+                android:id="@+id/winst"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="Institute"
+                android:textColor="@color/hintcolor" />
+
+            <EditText
+                android:id="@+id/wf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="From (YEAR)"
+                android:textColor="@color/hintcolor" />
+
+            <EditText
+                android:id="@+id/wt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/border"
+                android:hint="To (YEAR)"
+                android:textColor="@color/hintcolor" />
+
+
+            <Button
+                android:id="@+id/ws"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/ColorBlack"
+                android:text="Save"
+                android:textAllCaps="true"
+                android:textColor="@color/ColorWhite" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/w"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llw"
+            android:layout_marginTop="10dp"></ListView>
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/user_dob"
+            android:layout_marginTop="10dp"
+            android:background="@color/ColorBlack"
+            android:text="SAVE"
+            android:textAllCaps="true"
+            android:textColor="@color/ColorWhite"
+            android:textSize="18sp" />
 
 </RelativeLayout>
 </ScrollView>

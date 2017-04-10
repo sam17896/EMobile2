@@ -1,5 +1,6 @@
 package com.example.ahsan.emobile;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class CreateTopic extends AppCompatActivity implements View.OnClickListener  {
 
@@ -73,6 +77,7 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
         String n, d;
         String[] c, t;
         String id;
+        ProgressDialog pd;
 
         @Override
         protected void onPreExecute() {
@@ -83,6 +88,11 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
             c = category.getText().toString().split(",");
             t = tags.getText().toString().split(",");
 
+            pd = new ProgressDialog(CreateTopic.this);
+            pd.setTitle("Creating Topic.....");
+            pd.setCancelable(false);
+            pd.show();
+
 
         }
 
@@ -92,7 +102,12 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
         @Override
         protected String doInBackground(String... params) {
             HttpHandler sh = new HttpHandler();
-            String url = AppConfig.URL + "ct.php?name=" + n + "&description=" + d + "&id=" +session.getUserID();
+            String url = null;
+            try {
+                url = AppConfig.URL + "ct.php?name=" + URLEncoder.encode(n, "UTF-8") + "&description=" + URLEncoder.encode(d, "UTF-8") + "&id=" + session.getUserID();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
             String response = sh.makeServiceCall(url);
 
@@ -104,12 +119,12 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
                     id = d.getString("id");
 
                     for(int i=0;i<c.length;i++) {
-                        url = AppConfig.URL + "tc.php?id=" + id + "&cat=" + c[i];
+                        url = AppConfig.URL + "tc.php?id=" + id + "&cat=" + URLEncoder.encode(c[i], "UTF-8");
                         sh.makeServiceCall(url);
                     }
 
                     for(int i=0;i<t.length;i++){
-                        url = AppConfig.URL + "tt.php?id=" + id + "&tag=" + t[i];
+                        url = AppConfig.URL + "tt.php?id=" + id + "&tag=" + URLEncoder.encode(t[i], "UTF-8");
                         sh.makeServiceCall(url);
                     }
 
@@ -121,6 +136,8 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
                             showMessage("Json parsing error: " + e.getMessage());
                         }
                     });
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
             }
             else{
@@ -132,8 +149,6 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
                 });
             }
 
-
-
             return null;
         }
 
@@ -141,12 +156,18 @@ public class CreateTopic extends AppCompatActivity implements View.OnClickListen
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            if (pd.isShowing()) {
+                pd.hide();
+            }
+
             Toast.makeText(CreateTopic.this, "Topic Created", Toast.LENGTH_SHORT).show();
 
             session.setTopicID(id);
+            session.setTopicName(n);
 
             Intent intent = new Intent(CreateTopic.this,TopicView.class);
             startActivity(intent);
+            finish();
 
         }
 

@@ -114,7 +114,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener, 
                         String name = js.getString("name");
                         String id = js.getString("id");
                         String pic = js.getString("pic");
-                        System.out.println(name + ":" + id + ":" + pic);
+                        //  System.out.println(name + ":" + id + ":" + pic);
 
                         Child_Row child_row = new Child_Row(null, name, id, true, pic);
                         child_rows.add(child_row);
@@ -122,7 +122,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener, 
                     if (child_rows.size() > 0) {
                         parent_row = new Parent_Row("Users", child_rows);
                         parent_list.add(parent_row);
-                        System.out.println("here parent");
+                        //      System.out.println("here parent");
                     }
 
                     jsonArray = jsonObject.getJSONArray("topic");
@@ -135,7 +135,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener, 
                         String name = js.getString("name");
                         String id = js.getString("id");
                         String pic = js.getString("pic");
-                        System.out.println(name + ":" + id + ":" + pic);
+                        //      System.out.println(name + ":" + id + ":" + pic);
 
                         Child_Row child_row = new Child_Row(null, name, id, false, pic);
                         child_rows.add(child_row);
@@ -144,7 +144,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener, 
                     if (child_rows.size() > 0) {
                         parent_row = new Parent_Row("Topics", child_rows);
                         parent_list.add(parent_row);
-                        System.out.println("here pantent topic");
+                        //       System.out.println("here pantent topic");
                     }
 
                 } catch (JSONException e) {

@@ -19,7 +19,7 @@
         android:icon="@drawable/icon_request"
         android:orderInCategory="103"
         android:title="@string/chats"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_profile"
@@ -32,7 +32,7 @@
         android:id="@+id/action_search"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@drawable/icon_search"
-        android:orderInCategory="104"
+        android:orderInCategory="99"
         android:title="@string/string_search"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

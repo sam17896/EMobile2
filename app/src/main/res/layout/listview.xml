@@ -27,7 +27,8 @@
                 android:gravity="center_vertical"
                 android:text="@string/topic_title"
                 android:textColor="@color/textcolor"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/description"

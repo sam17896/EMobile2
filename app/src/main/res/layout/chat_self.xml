@@ -11,8 +11,10 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/chat_icon"
         android:layout_toStartOf="@+id/chat_icon"
         android:background="@drawable/bubble_grey"
@@ -25,7 +27,8 @@
         android:layout_alignEnd="@id/message"
         android:layout_alignRight="@id/message"
         android:layout_below="@id/message"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:textSize="12sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView

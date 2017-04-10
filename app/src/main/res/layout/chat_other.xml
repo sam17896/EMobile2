@@ -25,7 +25,7 @@
         android:layout_alignLeft="@+id/message"
         android:layout_alignStart="@+id/message"
         android:layout_below="@id/message"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:textSize="12sp" />

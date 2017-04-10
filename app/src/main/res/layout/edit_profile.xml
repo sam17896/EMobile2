@@ -217,7 +217,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
                 android:textColor="@color/hintcolor" />
@@ -283,7 +285,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
                 android:textColor="@color/hintcolor" />
@@ -350,7 +354,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="3"
                 android:background="@drawable/border"
                 android:hint="Interest"
@@ -408,7 +414,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="3"
                 android:background="@drawable/border"
                 android:hint="Skill"
@@ -466,7 +474,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
                 android:hint="Institure"
@@ -480,7 +490,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
-                android:hint="From (YEAR)"
+                android:hint="From"
                 android:textColor="@color/hintcolor" />
 
             <EditText
@@ -491,7 +501,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
-                android:hint="To (YEAR)"
+                android:hint="To"
                 android:textColor="@color/hintcolor" />
 
 
@@ -545,7 +555,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
                 android:hint="Institute"
@@ -559,7 +571,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
-                android:hint="From (YEAR)"
+                android:hint="From"
                 android:textColor="@color/hintcolor" />
 
             <EditText
@@ -570,7 +582,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="2"
                 android:background="@drawable/border"
-                android:hint="To (YEAR)"
+                android:hint="To"
                 android:textColor="@color/hintcolor" />
 
 
@@ -593,7 +605,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/llw"
-            android:layout_marginTop="10dp"></ListView>
+            android:layout_marginTop="10dp" />
 
         <Button
             android:id="@+id/save"

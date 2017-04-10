@@ -11,6 +11,7 @@
         android:paddingLeft="30sp"
         android:paddingStart="30dp"
         android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/ColorBlack"
         android:textSize="22sp"
         android:textStyle="bold" />
 

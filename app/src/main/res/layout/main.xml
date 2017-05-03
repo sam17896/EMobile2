@@ -3,25 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/Title"
+    <ImageView
+        android:id="@+id/splash"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:text="E-Mobile"
-        android:textAllCaps="true"
-        android:textColor="@color/ColorBlack"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Title"
-        android:gravity="center"
-        android:text="A Discussion Platform For Students"
-        android:textColor="@color/ColorBlack"
-        android:textSize="18sp" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image" />
 </RelativeLayout>
